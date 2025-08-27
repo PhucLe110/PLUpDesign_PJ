@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PLUpDesign - Nền tảng chia sẻ thiết kế</title>
+    <link rel="icon" href="./assets/icon.ico" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+  <body class="min-h-screen">
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- Confirmation Modal -->
+    <div
+      id="confirmationModal"
+      class="confirmation-modal hidden"
+      onclick="closeConfirmationModal(event)"
+    >
+      <div class="confirmation-modal-content" onclick="event.stopPropagation()">
+        <h3 id="confirmationTitle"></h3>
+        <p id="confirmationMessage"></p>
+        <div class="confirmation-modal-buttons">
+          <button
+            class="cancel-btn"
+            onclick="cancelConfirmation()"
+            data-i18n="cancel"
+          >
+            Hủy
+          </button>
+          <button
+            class="confirm-btn"
+            onclick="executeConfirmation()"
+            data-i18n="confirm"
+          >
+            Xác nhận
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trước đăng nhập -->
+    <div id="preLoginView" class="min-h-screen flex flex-col">
+      <!-- Header -->
+      <nav class="header-pre-login fixed w-full top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between items-center h-16">
+            <div class="flex items-center">
+              <a
+                href="#"
+                onclick="scrollToTop()"
+                class="text-2xl font-bold gradient-text"
+              >
+                PLUpDesign
+              </a>
+              <div class="hidden md:block ml-10">
+                <div class="flex space-x-4">
+                  <button
+                    onclick="showLoginModal();"
+                    class="tab px-3 py-2 rounded-md text-sm font-medium text-white hover:text-purple-200"
+                    data-i18n="discover"
+                  >
+                    Khám phá
+                  </button>
+                  <button
+                    onclick="showLoginModal();"
+                    class="tab px-3 py-2 rounded-md text-sm font-medium text-white hover:text-purple-200"
+                    data-i18n="upload"
+                  >
+                    Upload
+                  </button>
+                  <button
+                    onclick="showLoginModal();"
+                    class="tab px-3 py-2 rounded-md text-sm font-medium text-white hover:text-purple-200"
+                    data-i18n="library"
+                  >
+                    Thư viện
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <!-- Language and Theme Controls for pre-login -->
+              <select
+                id="languageSelectPreLogin"
+                onchange="changeLanguage(this.value)"
+                class="language-selector px-3 py-2 rounded-md text-sm bg-transparent text-white border border-white/20"
+              >
+                <option value="vi" class="text-gray-800 dark:text-white">
+                  🇻🇳 Tiếng Việt
+                </option>
+                <option value="jp" class="text-gray-800 dark:text-white">
+                  🇯🇵 日本語
+                </option>
+                <option value="en" class="text-gray-800 dark:text-white">
+                  🇺🇸 English
+                </option>
+              </select>
+              <button
+                onclick="toggleDarkMode()"
+                class="theme-toggle px-3 py-2 rounded-md text-sm text-white border border-white/20"
+              >
+                <i class="fas fa-moon"></i>
+              </button>
+              <button
+                onclick="showRegisterModal()"
+                class="border-2 border-white text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-white hover:text-purple-600 transition duration-300"
+                data-i18n="register"
+              >
+                Đăng ký
+              </button>
+              <button
+                onclick="showLoginModal()"
+                class="bg-white text-purple-600 px-4 py-2 rounded-md text-sm font-medium hover:bg-purple-100 transition duration-300"
+                data-i18n="login"
+              >
+                Đăng nhập
+              </button>
+            </div>
+            <!-- Hamburger menu for pre-login -->
+            <div class="md:hidden flex items-center">
+              <button
+                class="hamburger-menu text-white text-2xl focus:outline-none"
+                onclick="toggleMobileMenu('preLogin')"
+              >
+                <i class="fas fa-bars"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Mobile Menu for pre-login -->
+        <div id="mobileMenuPreLogin" class="mobile-menu">
+          <button
+            onclick="showLoginModal(); toggleMobileMenu('preLogin');"
+            class="tab text-custom-primary hover:bg-gray-100"
+            data-i18n="discover"
+          >
+            Khám phá
+          </button>
+          <button
+            onclick="showLoginModal(); toggleMobileMenu('preLogin');"
+            class="tab text-custom-primary hover:bg-gray-100"
+            data-i18n="upload"
+          >
+            Upload
+          </button>
+          <button
+            onclick="showLoginModal(); toggleMobileMenu('preLogin');"
+            class="tab text-custom-primary hover:bg-gray-100"
+            data-i18n="library"
+          >
+            Thư viện
+          </button>
+          <select
+            id="languageSelectPreLoginMobile"
+            onchange="changeLanguage(this.value); toggleMobileMenu('preLogin');"
+            class="language-selector text-custom-primary"
+          >
+            <option value="vi">🇻🇳 Tiếng Việt</option>
+            <option value="jp">🇯🇵 日本語</option>
+            <option value="en">🇺🇸 English</option>
+          </select>
+          <button
+            onclick="toggleDarkMode(); toggleMobileMenu('preLogin');"
+            class="theme-toggle text-custom-primary"
+          >
+            <i class="fas fa-moon"></i> Chế độ tối
+          </button>
+          <button
+            onclick="showRegisterModal(); toggleMobileMenu('preLogin');"
+            class="text-custom-primary hover:bg-gray-100"
+            data-i18n="register"
+          >
+            Đăng ký
+          </button>
+          <button
+            onclick="showLoginModal(); toggleMobileMenu('preLogin');"
+            class="text-custom-primary hover:bg-gray-100"
+            data-i18n="login"
+          >
+            Đăng nhập
+          </button>
+        </div>
+      </nav>
+
+      <!-- Hero Section -->
+      <div class="hero-section flex-grow flex items-center justify-center">
+        <div class="text-center px-4 sm:px-6 lg:px-8">
+          <h1
+            class="text-5xl md:text-6xl font-bold text-white mb-6 slide-in"
+            data-i18n="heroTitle"
+          >
+            Nền tảng chia sẻ
+            <span class="gradient-text">thiết kế sáng tạo</span>
+          </h1>
+          <p
+            class="text-xl text-purple-100 mb-8 max-w-3xl mx-auto slide-in"
+            data-i18n="heroSubtitle"
+          >
+            Chia sẻ, đánh giá và khám phá các thiết kế độc đáo. Cộng đồng dành
+            cho các nhà thiết kế sáng tạo.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center slide-in">
+            <button
+              onclick="showRegisterModal()"
+              class="bg-white text-purple-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-purple-50 transition duration-300 transform hover:scale-105"
+              data-i18n="getStarted"
+            >
+              Bắt đầu ngay
+            </button>
+            <button
+              onclick="scrollToFeatures()"
+              class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-purple-600 transition duration-300"
+              data-i18n="feature"
+            >
+              Tính năng
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Features Section -->
+      <div id="featuresSection" class="bg-custom-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2
+            class="text-3xl md:text-4xl font-bold text-center text-custom-primary mb-16"
+            data-i18n="featureTitle"
+          >
+            Tính năng nổi bật
+          </h2>
+          <div class="grid md:grid-cols-3 gap-8">
+            <div
+              class="floating-card bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-2xl shadow-lg"
+            >
+              <div
+                class="w-16 h-16 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full flex items-center justify-center text-white text-2xl mb-4"
+              >
+                <i class="fas fa-cloud-upload-alt"></i>
+              </div>
+              <h3
+                class="text-xl font-semibold text-custom-primary mb-4"
+                data-i18n="feature1Title"
+              >
+                Upload Thiết kế
+              </h3>
+              <p class="text-custom-secondary" data-i18n="feature1Desc">
+                Chia sẻ các thiết kế của bạn với cộng đồng một cách dễ dàng và
+                nhanh chóng.
+              </p>
+            </div>
+            <div
+              class="floating-card bg-gradient-to-br from-green-50 to-teal-50 p-8 rounded-2xl shadow-lg"
+              style="animation-delay: 2s"
+            >
+              <div
+                class="w-16 h-16 bg-gradient-to-r from-green-400 to-teal-400 rounded-full flex items-center justify-center text-white text-2xl mb-4"
+              >
+                <i class="fas fa-robot"></i>
+              </div>
+              <h3
+                class="text-xl font-semibold text-custom-primary mb-4"
+                data-i18n="feature2Title"
+              >
+                AI Đánh giá
+              </h3>
+              <p class="text-custom-secondary" data-i18n="feature2Desc">
+                Hệ thống AI thông minh đánh giá và gợi ý cải thiện cho thiết kế
+                của bạn.
+              </p>
+            </div>
+            <div
+              class="floating-card bg-gradient-to-br from-orange-50 to-red-50 p-8 rounded-2xl shadow-lg"
+              style="animation-delay: 4s"
+            >
+              <div
+                class="w-16 h-16 bg-gradient-to-r from-orange-400 to-red-400 rounded-full flex items-center justify-center text-white text-2xl mb-4"
+              >
+                <i class="fas fa-heart"></i>
+              </div>
+              <h3
+                class="text-xl font-semibold text-custom-primary mb-4"
+                data-i18n="feature3Title"
+              >
+                Thư viện cá nhân
+              </h3>
+              <p class="text-custom-secondary" data-i18n="feature3Desc">
+                Lưu trữ và quản lý tất cả thiết kế yêu thích của bạn một cách
+                khoa học.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="bg-custom-white py-8 border-t border-custom mt-auto">
+        <div
+          class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center footer-content"
+        >
+          <div
+            class="flex flex-col md:flex-row justify-between items-start text-left"
+          >
+            <div class="mb-6 md:mb-0 md:w-1/3">
+              <h3 class="text-2xl font-bold text-custom-primary mb-3">
+                PLUpDesign
+              </h3>
+              <p class="text-custom-secondary text-sm">
+                © 2025 PLUpDesign. All rights reserved.
+              </p>
+              <div class="flex space-x-4 mt-4 justify-center md:justify-start">
+                <a
+                  href="https://www.facebook.com/phuc.le.986617"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-custom-secondary hover:text-purple-600"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+                <a href="#" class="text-custom-secondary hover:text-purple-600"
+                  ><i class="fab fa-twitter"></i
+                ></a>
+                <a href="#" class="text-custom-secondary hover:text-purple-600"
+                  ><i class="fab fa-instagram"></i
+                ></a>
+                <a href="#" class="text-custom-secondary hover:text-purple-600"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="mb-6 md:mb-0 md:w-1/3">
+              <h4
+                class="text-lg font-semibold text-custom-primary mb-3"
+                data-i18n="quickLinks"
+              >
+                Liên kết nhanh
+              </h4>
+              <ul class="text-custom-secondary text-sm space-y-2">
+                <li>
+                  <a
+                    href="#"
+                    class="hover:text-purple-600"
+                    data-i18n="privacyPolicy"
+                    >Chính sách bảo mật</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="hover:text-purple-600"
+                    data-i18n="termsOfService"
+                    >Điều khoản dịch vụ</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="hover:text-purple-600"
+                    data-i18n="contactUs"
+                    >Liên hệ</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="hover:text-purple-600" data-i18n="aboutUs"
+                    >Về chúng tôi</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="md:w-1/3">
+              <h4
+                class="text-lg font-semibold text-custom-primary mb-3"
+                data-i18n="userGuides"
+              >
+                Hướng dẫn sử dụng
+              </h4>
+              <ul class="text-custom-secondary text-sm space-y-2">
+                <li>
+                  <a href="#" class="hover:text-purple-600" data-i18n="guide1"
+                    >Đăng ký và Đăng nhập</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="hover:text-purple-600" data-i18n="guide2"
+                    >Upload Thiết kế</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="hover:text-purple-600" data-i18n="guide3"
+                    >Khám phá và Tương tác</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="hover:text-purple-600" data-i18n="guide4"
+                    >Sử dụng AI phân tích</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Sau đăng nhập -->
+    <div id="postLoginView" class="min-h-screen hidden flex flex-col">
+      <!-- Header sau đăng nhập -->
+      <nav
+        class="header-post-login fixed w-full top-0 z-40 border-b border-custom"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between items-center h-16">
+            <div class="flex items-center">
+              <a
+                href="#"
+                onclick="showTab('discover')"
+                class="text-2xl font-bold gradient-text"
+                >PLUpDesign</a
+              >
+              <div class="hidden md:block ml-10">
+                <div class="flex space-x-4">
+                  <button
+                    onclick="showTab('discover')"
+                    class="tab px-3 py-2 rounded-md text-sm font-medium text-custom-primary hover:text-purple-600"
+                    data-i18n="discover"
+                  >
+                    Khám phá
+                  </button>
+                  <button
+                    onclick="showTab('upload')"
+                    class="tab px-3 py-2 rounded-md text-sm font-medium text-custom-primary hover:text-purple-600"
+                    data-i18n="upload"
+                  >
+                    Upload
+                  </button>
+                  <button
+                    onclick="showTab('library')"
+                    class="tab px-3 py-2 rounded-md text-sm font-medium text-custom-primary hover:text-purple-600"
+                    data-i18n="library"
+                  >
+                    Thư viện
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center space-x-4">
+              <!-- Language and Theme Controls for post-login -->
+              <select
+                id="languageSelectPostLogin"
+                onchange="changeLanguage(this.value)"
+                class="language-selector px-3 py-2 rounded-md text-sm text-custom-primary bg-custom-white border-custom"
+              >
+                <option value="vi">🇻🇳 Tiếng Việt</option>
+                <option value="jp">🇯🇵 日本語</option>
+                <option value="en">🇺🇸 English</option>
+              </select>
+              <button
+                onclick="toggleDarkMode()"
+                class="theme-toggle px-3 py-2 rounded-md text-sm text-custom-primary bg-custom-white border-custom"
+              >
+                <i class="fas fa-moon"></i>
+              </button>
+
+              <div class="relative">
+                <button
+                  id="notificationBtn"
+                  class="p-2 text-custom-secondary hover:text-purple-600 relative"
+                >
+                  <i class="fas fa-bell"></i>
+                  <span
+                    id="notificationCount"
+                    class="absolute top-0 right-0 bg-red-500 text-white rounded-full text-xs w-4 h-4 flex items-center justify-center"
+                    >3</span
+                  >
+                </button>
+                <div id="notificationPanel" class="notification-panel">
+                  <div class="p-4">
+                    <h4
+                      class="font-semibold text-custom-primary mb-3"
+                      data-i18n="notifications"
+                    >
+                      Thông báo
+                    </h4>
+                    <div class="space-y-2" id="notificationList">
+                      <!-- Notifications will be loaded here -->
+                    </div>
+                    <button
+                      onclick="markAllNotificationsAsRead()"
+                      class="mt-4 w-full bg-purple-600 text-white py-2 rounded-md text-sm hover:bg-purple-700"
+                      data-i18n="markAllRead"
+                    >
+                      Đánh dấu đã đọc tất cả
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2">
+                <div
+                  id="userAvatar"
+                  class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm cursor-pointer"
+                  onclick="showProfileEditModal()"
+                ></div>
+                <div
+                  class="text-sm text-custom-secondary"
+                  id="userWelcome"
+                ></div>
+              </div>
+              <button
+                onclick="confirmLogout()"
+                class="bg-purple-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-purple-700"
+                data-i18n="logout"
+              >
+                Đăng xuất
+              </button>
+            </div>
+            <!-- Hamburger menu for post-login -->
+            <div class="md:hidden flex items-center">
+              <button
+                class="hamburger-menu text-custom-primary text-2xl focus:outline-none"
+                onclick="toggleMobileMenu('postLogin')"
+              >
+                <i class="fas fa-bars"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Mobile Menu for post-login -->
+        <div id="mobileMenuPostLogin" class="mobile-menu">
+          <button
+            onclick="showTab('discover'); toggleMobileMenu('postLogin');"
+            class="tab text-custom-primary hover:bg-gray-100"
+            data-i18n="discover"
+          >
+            Khám phá
+          </button>
+          <button
+            onclick="showTab('upload'); toggleMobileMenu('postLogin');"
+            class="tab text-custom-primary hover:bg-gray-100"
+            data-i18n="upload"
+          >
+            Upload
+          </button>
+          <button
+            onclick="showTab('library'); toggleMobileMenu('postLogin');"
+            class="tab text-custom-primary hover:bg-gray-100"
+            data-i18n="library"
+          >
+            Thư viện
+          </button>
+          <select
+            id="languageSelectPostLoginMobile"
+            onchange="changeLanguage(this.value); toggleMobileMenu('postLogin');"
+            class="language-selector text-custom-primary"
+          >
+            <option value="vi">🇻🇳 Tiếng Việt</option>
+            <option value="jp">🇯🇵 日本語</option>
+            <option value="en">🇺🇸 English</option>
+          </select>
+          <button
+            onclick="toggleDarkMode(); toggleMobileMenu('postLogin');"
+            class="theme-toggle text-custom-primary"
+          >
+            <i class="fas fa-moon"></i> Chế độ tối
+          </button>
+          <button
+            onclick="showProfileEditModal(); toggleMobileMenu('postLogin');"
+            class="text-custom-primary hover:bg-gray-100"
+            data-i18n="editProfile"
+          >
+            Chỉnh sửa Profile
+          </button>
+          <button
+            onclick="confirmLogout(); toggleMobileMenu('postLogin');"
+            class="text-custom-primary hover:bg-gray-100"
+            data-i18n="logout"
+          >
+            Đăng xuất
+          </button>
+        </div>
+      </nav>
+
+      <!-- Nội dung chính -->
+      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow pt-20">
+        <!-- Tab Khám phá -->
+        <div id="discoverTab" class="tab-content">
+          <h2
+            class="text-2xl font-bold text-custom-primary mb-6"
+            data-i18n="discoverTitle"
+          >
+            Khám phá thiết kế mới
+          </h2>
+          <div class="mb-6 relative search-input-container">
+            <i class="fas fa-search search-icon"></i>
+            <input
+              type="text"
+              id="designSearchInput"
+              onkeyup="searchDesigns(event)"
+              onfocus="showSearchHistory()"
+              placeholder="Tìm kiếm thiết kế..."
+              class="w-full px-4 py-2 border border-custom rounded-full focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-custom-white text-custom-primary"
+              data-i18n-ph="searchPlaceholder"
+            />
+            <button
+              class="clear-search-btn"
+              onclick="clearSearchInput()"
+              id="clearSearchBtn"
+              style="display: none"
+            >
+              &times;
+            </button>
+            <div
+              id="searchHistory"
+              class="absolute w-full mt-1 rounded-b-lg z-10 hidden"
+            ></div>
+          </div>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            id="discoverGrid"
+          >
+            <!-- Design cards sẽ được thêm bằng JavaScript -->
+          </div>
+          <div id="pagination" class="pagination"></div>
+        </div>
+
+        <!-- Tab Upload -->
+        <div id="uploadTab" class="tab-content hidden">
+          <div class="max-w-2xl mx-auto">
+            <h2
+              class="text-2xl font-bold text-custom-primary mb-6"
+              data-i18n="uploadTitle"
+            >
+              Upload thiết kế mới
+            </h2>
+            <div
+              class="bg-custom-white p-8 rounded-2xl shadow-lg border border-custom"
+            >
+              <div
+                class="border-dashed border-custom rounded-lg p-8 text-center"
+              >
+                <i
+                  class="fas fa-cloud-upload-alt text-4xl text-custom-secondary mb-4"
+                ></i>
+                <p
+                  class="text-custom-secondary mb-4"
+                  data-i18n="uploadInstructions"
+                >
+                  Kéo thả file thiết kế hoặc click để chọn
+                </p>
+                <input
+                  type="file"
+                  id="designUpload"
+                  class="hidden"
+                  accept="image/*"
+                  onchange="displayFileName()"
+                />
+                <button
+                  onclick="document.getElementById('designUpload').click()"
+                  class="bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700"
+                  data-i18n="chooseFile"
+                >
+                  Chọn file
+                </button>
+                <p
+                  id="fileNameDisplay"
+                  class="mt-2 text-sm text-custom-primary"
+                ></p>
+              </div>
+              <div class="mt-6">
+                <label
+                  class="block text-sm font-medium text-custom-primary mb-2"
+                  data-i18n="designTitle"
+                  >Tiêu đề thiết kế</label
+                >
+                <input
+                  type="text"
+                  id="designTitle"
+                  class="w-full px-4 py-2 border border-custom rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-custom-white text-custom-primary"
+                />
+              </div>
+              <div class="mt-4">
+                <label
+                  class="block text-sm font-medium text-custom-primary mb-2"
+                  data-i18n="designDescription"
+                  >Mô tả</label
+                >
+                <textarea
+                  id="designDescription"
+                  rows="4"
+                  class="w-full px-4 py-2 border border-custom rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-custom-white text-custom-primary"
+                ></textarea>
+              </div>
+              <button
+                onclick="uploadDesign()"
+                class="w-full bg-purple-600 text-white py-3 rounded-md mt-6 hover:bg-purple-700 font-semibold"
+                data-i18n="uploadDesign"
+              >
+                Upload thiết kế
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Thư viện -->
+        <div id="libraryTab" class="tab-content hidden">
+          <h2
+            class="text-2xl font-bold text-custom-primary mb-6"
+            data-i18n="libraryTitle"
+          >
+            Thư viện của bạn
+          </h2>
+          <div class="mb-4 flex items-center space-x-4">
+            <button
+              onclick="filterLibrary('all')"
+              class="px-4 py-2 rounded-md text-sm font-medium text-custom-primary hover:bg-purple-100 dark:hover:bg-gray-700"
+              id="filterAll"
+              data-i18n="all"
+            >
+              Tất cả
+            </button>
+            <button
+              onclick="filterLibrary('myDesigns')"
+              class="px-4 py-2 rounded-md text-sm font-medium text-custom-primary hover:bg-purple-100 dark:hover:bg-gray-700"
+              id="filterMyDesigns"
+              data-i18n="myDesigns"
+            >
+              Thiết kế của tôi
+            </button>
+            <button
+              onclick="filterLibrary('likedDesigns')"
+              class="px-4 py-2 rounded-md text-sm font-medium text-custom-primary hover:bg-purple-100 dark:hover:bg-gray-700"
+              id="filterLikedDesigns"
+              data-i18n="likedDesigns"
+            >
+              Thiết kế đã thích
+            </button>
+            <button
+              onclick="filterLibrary('savedDesigns')"
+              class="px-4 py-2 rounded-md text-sm font-medium text-custom-primary hover:bg-purple-100 dark:hover:bg-gray-700"
+              id="filterSavedDesigns"
+              data-i18n="savedDesigns"
+            >
+              Thiết kế đã lưu
+            </button>
+            <button
+              onclick="confirmDeleteAllMyDesigns()"
+              class="px-4 py-2 rounded-md text-sm font-medium bg-red-500 text-white hover:bg-red-600"
+              id="deleteAllMyDesignsBtn"
+              data-i18n="deleteAllMyDesigns"
+            >
+              Xóa tất cả thiết kế của tôi
+            </button>
+          </div>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            id="libraryGrid"
+          >
+            <!-- Design cards trong thư viện sẽ được thêm bằng JavaScript -->
+          </div>
+          <div id="libraryPagination" class="pagination"></div>
+        </div>
+
+        <!-- Modal AI Analysis -->
+        <div
+          id="aiAnalysisModal"
+          class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50"
+        >
+          <div
+            class="bg-custom-white rounded-2xl p-6 max-w-2xl w-full mx-4 modal border border-custom"
+          >
+            <div class="flex justify-between items-center mb-4">
+              <h3
+                class="text-xl font-bold text-custom-primary"
+                data-i18n="aiAnalysis"
+              >
+                Phân tích AI
+              </h3>
+              <button
+                onclick="closeModal('aiAnalysisModal')"
+                class="text-custom-secondary hover:text-purple-600 text-xl"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="mb-4">
+              <img
+                id="aiAnalysisImage"
+                src=""
+                alt="Design for AI Analysis"
+                class="w-full h-48 object-contain rounded-lg bg-gray-100 mb-4"
+              />
+            </div>
+            <div class="ai-analysis p-4 rounded-lg text-white mb-4">
+              <p>
+                🌱 <strong data-i18n="aiCreativity">Độ sáng tạo:</strong>
+                <span id="creativityScore">85%</span> -
+                <span data-i18n="aiCreativityDesc"
+                  >Thiết kế có nhiều yếu tố độc đáo</span
+                >
+              </p>
+              <p>
+                🎨 <strong data-i18n="aiColors">Màu sắc:</strong>
+                <span data-i18n="aiColorsDesc"
+                  >Phối màu hài hòa, phù hợp với xu hướng</span
+                >
+              </p>
+              <p>
+                ⚡ <strong data-i18n="aiSuggestions">Gợi ý:</strong>
+                <span id="aiSuggestionsText" data-i18n="aiSuggestionsDesc"
+                  >Có thể thêm hiệu ứng chuyển động nhẹ</span
+                >
+              </p>
+              <p>
+                ✅ <strong data-i18n="aiResult">Kết quả:</strong>
+                <span id="aiResultText" data-i18n="aiResultSuccess"
+                  >Thiết kế đạt chuẩn để chia sẻ</span
+                >
+              </p>
+            </div>
+            <div class="flex gap-2" id="aiAnalysisButtons">
+              <!-- Buttons will be rendered based on context -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Design Detail -->
+        <div
+          id="designDetailModal"
+          class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50"
+        >
+          <div
+            class="bg-custom-white rounded-2xl p-6 max-w-3xl w-full mx-4 modal border border-custom"
+          >
+            <div class="flex justify-between items-center mb-4">
+              <h3
+                class="text-2xl font-bold text-custom-primary"
+                id="detailDesignTitle"
+              >
+                Design Title
+              </h3>
+              <button
+                onclick="closeDesignDetailModal()"
+                class="text-custom-secondary hover:text-purple-600 text-xl"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <img
+                  id="detailDesignImage"
+                  src=""
+                  alt="Design Image"
+                  class="w-full h-auto rounded-lg mb-4"
+                />
+                <p class="text-custom-secondary text-sm mb-2">
+                  <span data-i18n="by">By</span>:
+                  <span id="detailDesignAuthor"></span>
+                </p>
+                <p
+                  class="text-custom-primary mb-4"
+                  id="detailDesignDescription"
+                ></p>
+                <div class="flex items-center space-x-4">
+                  <button
+                    id="detailLikeButton"
+                    class="like-button text-custom-secondary hover:text-red-500"
+                  >
+                    <i class="fas fa-heart"></i>
+                    <span class="ml-1" id="detailDesignLikes">0</span>
+                  </button>
+                  <button
+                    id="detailSaveButton"
+                    class="save-button text-custom-secondary hover:text-yellow-500"
+                  >
+                    <i class="fas fa-bookmark"></i>
+                  </button>
+                  <button
+                    onclick="showCommentModal(currentDesignIdForDetail)"
+                    class="text-custom-secondary hover:text-purple-600"
+                  >
+                    <i class="fas fa-comment"></i>
+                    <span class="ml-1" id="detailDesignCommentsCount">0</span>
+                  </button>
+                </div>
+              </div>
+              <div>
+                <h4
+                  class="font-semibold text-custom-primary mb-3"
+                  data-i18n="comments"
+                >
+                  Bình luận
+                </h4>
+                <div
+                  class="comment-section mb-4 p-4 border border-custom rounded-lg"
+                  id="detailCommentList"
+                >
+                  <!-- Comments will be loaded here -->
+                </div>
+                <div class="flex gap-2">
+                  <input
+                    type="text"
+                    id="detailNewCommentInput"
+                    placeholder="Viết bình luận..."
+                    class="flex-1 px-4 py-2 border border-custom rounded-md bg-custom-white text-custom-primary"
+                    data-i18n-ph="commentPlaceholder"
+                  />
+                  <button
+                    onclick="addComment(currentDesignIdForDetail, 'detailNewCommentInput', 'detailCommentList')"
+                    class="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700"
+                    data-i18n="send"
+                  >
+                    Gửi
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Comment (used for direct comment button on card) -->
+        <div
+          id="commentModal"
+          class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50"
+        >
+          <div
+            class="bg-custom-white rounded-2xl p-6 max-w-2xl w-full mx-4 modal border border-custom"
+          >
+            <div class="flex justify-between items-center mb-4">
+              <h3
+                class="text-xl font-bold text-custom-primary"
+                data-i18n="comments"
+              >
+                Bình luận
+              </h3>
+              <button
+                onclick="closeCommentModal()"
+                class="text-custom-secondary hover:text-purple-600 text-xl"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div
+              class="comment-section mb-4 p-4 border border-custom rounded-lg"
+              id="commentList"
+            >
+              <!-- Comments will be loaded here -->
+            </div>
+            <div class="flex gap-2">
+              <input
+                type="text"
+                id="newCommentInput"
+                placeholder="Viết bình luận..."
+                class="flex-1 px-4 py-2 border border-custom rounded-md bg-custom-white text-custom-primary"
+                data-i18n-ph="commentPlaceholder"
+              />
+              <button
+                onclick="addComment(currentDesignIdForComment, 'newCommentInput', 'commentList')"
+                class="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700"
+                data-i18n="send"
+              >
+                Gửi
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="bg-custom-white py-8 border-t border-custom mt-auto">
+        <div
+          class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center footer-content"
+        >
+          <div
+            class="flex flex-col md:flex-row justify-between items-start text-left"
+          >
+            <div class="mb-6 md:mb-0 md:w-1/3">
+              <h3 class="text-2xl font-bold text-custom-primary mb-3">
+                PLUpDesign
+              </h3>
+              <p class="text-custom-secondary text-sm">
+                © 2025 PLUpDesign. All rights reserved.
+              </p>
+              <div class="flex space-x-4 mt-4 justify-center md:justify-start">
+                <a
+                  href="https://www.facebook.com/phuc.le.986617"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-custom-secondary hover:text-purple-600"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+                <a href="#" class="text-custom-secondary hover:text-purple-600"
+                  ><i class="fab fa-twitter"></i
+                ></a>
+                <a href="#" class="text-custom-secondary hover:text-purple-600"
+                  ><i class="fab fa-instagram"></i
+                ></a>
+                <a href="#" class="text-custom-secondary hover:text-purple-600"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="mb-6 md:mb-0 md:w-1/3">
+              <h4
+                class="text-lg font-semibold text-custom-primary mb-3"
+                data-i18n="quickLinks"
+              >
+                Liên kết nhanh
+              </h4>
+              <ul class="text-custom-secondary text-sm space-y-2">
+                <li>
+                  <a
+                    href="#"
+                    class="hover:text-purple-600"
+                    data-i18n="privacyPolicy"
+                    >Chính sách bảo mật</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="hover:text-purple-600"
+                    data-i18n="termsOfService"
+                    >Điều khoản dịch vụ</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="hover:text-purple-600"
+                    data-i18n="contactUs"
+                    >Liên hệ</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="hover:text-purple-600" data-i18n="aboutUs"
+                    >Về chúng tôi</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="md:w-1/3">
+              <h4
+                class="text-lg font-semibold text-custom-primary mb-3"
+                data-i18n="userGuides"
+              >
+                Hướng dẫn sử dụng
+              </h4>
+              <ul class="text-custom-secondary text-sm space-y-2">
+                <li>
+                  <a href="#" class="hover:text-purple-600" data-i18n="guide1"
+                    >Đăng ký và Đăng nhập</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="hover:text-purple-600" data-i18n="guide2"
+                    >Upload Thiết kế</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="hover:text-purple-600" data-i18n="guide3"
+                    >Khám phá và Tương tác</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="hover:text-purple-600" data-i18n="guide4"
+                    >Sử dụng AI phân tích</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Modal đăng nhập -->
+    <div
+      id="loginModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50"
+    >
+      <div
+        class="bg-custom-white rounded-2xl p-8 max-w-md w-full mx-4 modal border border-custom"
+      >
+        <div class="flex justify-between items-center mb-4">
+          <h2
+            class="text-2xl font-bold text-custom-primary text-center"
+            data-i18n="login"
+          >
+            Đăng nhập
+          </h2>
+          <button
+            onclick="closeModal('loginModal')"
+            class="text-custom-secondary hover:text-purple-600 text-xl"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <label
+              class="block text-sm font-medium text-custom-primary mb-2"
+              data-i18n="email"
+              >Email</label
+            >
+            <input
+              type="email"
+              id="loginEmail"
+              class="w-full px-4 py-2 border border-custom rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-custom-white text-custom-primary"
+            />
+          </div>
+          <div class="password-input-container">
+            <label
+              class="block text-sm font-medium text-custom-primary mb-2"
+              data-i18n="password"
+              >Mật khẩu</label
+            >
+            <input
+              type="password"
+              id="loginPassword"
+              class="w-full px-4 py-2 border border-custom rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-custom-white text-custom-primary"
+            />
+            <button
+              type="button"
+              class="toggle-password"
+              onclick="togglePasswordVisibility('loginPassword')"
+            >
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <div class="flex justify-between text-sm">
+            <label class="flex items-center text-custom-secondary">
+              <input type="checkbox" class="mr-2" />
+              <span data-i18n="rememberMe">Ghi nhớ đăng nhập</span>
+            </label>
+            <a
+              href="#"
+              onclick="showForgotPasswordModal()"
+              class="text-purple-600 hover:underline"
+              data-i18n="forgotPassword"
+              >Quên mật khẩu?</a
+            >
+          </div>
+          <button
+            onclick="login()"
+            class="w-full bg-purple-600 text-white py-3 rounded-md hover:bg-purple-700 font-semibold"
+            data-i18n="login"
+          >
+            Đăng nhập
+          </button>
+          <p class="text-center text-sm text-custom-secondary">
+            <span data-i18n="noAccount">Chưa có tài khoản?</span>
+            <a
+              href="#"
+              onclick="showRegisterModal()"
+              class="text-purple-600 hover:underline"
+              data-i18n="registerNow"
+              >Đăng ký ngay</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal đăng ký -->
+    <div
+      id="registerModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50"
+    >
+      <div
+        class="bg-custom-white rounded-2xl p-8 max-w-md w-full mx-4 modal border border-custom"
+      >
+        <div class="flex justify-between items-center mb-4">
+          <h2
+            class="text-2xl font-bold text-custom-primary text-center"
+            data-i18n="register"
+          >
+            Đăng ký
+          </h2>
+          <button
+            onclick="closeModal('registerModal')"
+            class="text-custom-secondary hover:text-purple-600 text-xl"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <label
+              class="block text-sm font-medium text-custom-primary mb-2"
+              data-i18n="fullName"
+              >Họ và tên</label
+            >
+            <input
+              type="text"
+              id="registerName"
+              class="w-full px-4 py-2 border border-custom rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-custom-white text-custom-primary"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-custom-primary mb-2"
+              data-i18n="email"
+              >Email</label
+            >
+            <input
+              type="email"
+              id="registerEmail"
+              class="w-full px-4 py-2 border border-custom rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-custom-white text-custom-primary"
+            />
+          </div>
+          <div class="password-input-container">
+            <label
+              class="block text-sm font-medium text-custom-primary mb-2"
+              data-i18n="password"
+              >Mật khẩu</label
+            >
+            <input
+              type="password"
+              id="registerPassword"
+              class="w-full px-4 py-2 border border-custom rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-custom-white text-custom-primary"
+            />
+            <button
+              type="button"
+              class="toggle-password"
+              onclick="togglePasswordVisibility('registerPassword')"
+            >
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <div class="password-input-container">
+            <label
+              class="block text-sm font-medium text-custom-primary mb-2"
+              data-i18n="confirmPassword"
+              >Xác nhận mật khẩu</label
+            >
+            <input
+              type="password"
+              id="registerConfirmPassword"
+              class="w-full px-4 py-2 border border-custom rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-custom-white text-custom-primary"
+            />
+            <button
+              type="button"
+              class="toggle-password"
+              onclick="togglePasswordVisibility('registerConfirmPassword')"
+            >
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <button
+            onclick="register()"
+            class="w-full bg-purple-600 text-white py-3 rounded-md hover:bg-purple-700 font-semibold"
+            data-i18n="register"
+          >
+            Đăng ký
+          </button>
+          <p class="text-center text-sm text-custom-secondary">
+            <span data-i18n="haveAccount">Đã có tài khoản?</span>
+            <a
+              href="#"
+              onclick="showLoginModal()"
+              class="text-purple-600 hover:underline"
+              data-i18n="loginNow"
+              >Đăng nhập ngay</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal chỉnh sửa Profile (Avatar và Tên) -->
+    <div
+      id="profileEditModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50"
+    >
+      <div
+        class="bg-custom-white rounded-2xl p-8 max-w-md w-full mx-4 modal border border-custom"
+      >
+        <div class="flex justify-between items-center mb-4">
+          <h2
+            class="text-2xl font-bold text-custom-primary"
+            data-i18n="editProfile"
+          >
+            Chỉnh sửa Profile
+          </h2>
+          <button
+            onclick="closeModal('profileEditModal')"
+            class="text-custom-secondary hover:text-purple-600 text-xl"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <label
+              class="block text-sm font-medium text-custom-primary mb-2"
+              data-i18n="fullName"
+              >Họ và tên</label
+            >
+            <input
+              type="text"
+              id="editProfileName"
+              class="w-full px-4 py-2 border border-custom rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-custom-white text-custom-primary"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-custom-primary mb-2"
+              data-i18n="selectAvatar"
+              >Chọn Avatar</label
+            >
+            <div class="grid grid-cols-4 gap-4" id="profileAvatarGrid">
+              <!-- Avatars will be loaded here -->
+            </div>
+          </div>
+          <button
+            onclick="saveProfileChanges()"
+            class="w-full bg-purple-600 text-white py-3 rounded-md hover:bg-purple-700 font-semibold"
+            data-i18n="saveChanges"
+          >
+            Lưu thay đổi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Quên mật khẩu -->
+    <div
+      id="forgotPasswordModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50"
+    >
+      <div
+        class="bg-custom-white rounded-2xl p-8 max-w-md w-full mx-4 modal border border-custom"
+      >
+        <div class="flex justify-between items-center mb-4">
+          <h2
+            class="text-2xl font-bold text-custom-primary text-center"
+            data-i18n="forgotPassword"
+          >
+            Quên mật khẩu?
+          </h2>
+          <button
+            onclick="closeModal('forgotPasswordModal')"
+            class="text-custom-secondary hover:text-purple-600 text-xl"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div id="forgotPasswordStep1" class="space-y-4">
+          <p
+            class="text-custom-secondary text-sm"
+            data-i18n="enterEmailForCode"
+          >
+            Vui lòng nhập email của bạn để nhận mã xác nhận.
+          </p>
+          <div>
+            <label
+              class="block text-sm font-medium text-custom-primary mb-2"
+              data-i18n="email"
+              >Email</label
+            >
+            <input
+              type="email"
+              id="forgotPasswordEmail"
+              class="w-full px-4 py-2 border border-custom rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-custom-white text-custom-primary"
+            />
+          </div>
+          <button
+            onclick="sendResetCode()"
+            class="w-full bg-purple-600 text-white py-3 rounded-md hover:bg-purple-700 font-semibold"
+            data-i18n="sendVerificationCode"
+          >
+            Gửi mã xác nhận
+          </button>
+          <p class="text-center text-sm text-custom-secondary">
+            <a
+              href="#"
+              onclick="showLoginModal(); closeModal('forgotPasswordModal');"
+              class="text-purple-600 hover:underline"
+              data-i18n="backToLogin"
+              >Quay lại Đăng nhập</a
+            >
+          </p>
+        </div>
+
+        <div id="forgotPasswordStep2" class="space-y-4 hidden">
+          <p
+            class="text-custom-secondary text-sm"
+            data-i18n="codeSentEnterNewPassword"
+          >
+            Mã xác nhận đã được gửi đến email của bạn. Vui lòng nhập mã và mật
+            khẩu mới.
+          </p>
+          <div>
+            <label
+              class="block text-sm font-medium text-custom-primary mb-2"
+              data-i18n="verificationCode"
+              >Mã xác nhận</label
+            >
+            <input
+              type="text"
+              id="resetCode"
+              class="w-full px-4 py-2 border border-custom rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-custom-white text-custom-primary"
+            />
+          </div>
+          <div class="password-input-container">
+            <label
+              class="block text-sm font-medium text-custom-primary mb-2"
+              data-i18n="newPassword"
+              >Mật khẩu mới</label
+            >
+            <input
+              type="password"
+              id="newPassword"
+              class="w-full px-4 py-2 border border-custom rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-custom-white text-custom-primary"
+            />
+            <button
+              type="button"
+              class="toggle-password"
+              onclick="togglePasswordVisibility('newPassword')"
+            >
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <div class="password-input-container">
+            <label
+              class="block text-sm font-medium text-custom-primary mb-2"
+              data-i18n="confirmNewPassword"
+              >Xác nhận mật khẩu mới</label
+            >
+            <input
+              type="password"
+              id="confirmNewPassword"
+              class="w-full px-4 py-2 border border-custom rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-custom-white text-custom-primary"
+            />
+            <button
+              type="button"
+              class="toggle-password"
+              onclick="togglePasswordVisibility('confirmNewPassword')"
+            >
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <button
+            onclick="resetPassword()"
+            class="w-full bg-purple-600 text-white py-3 rounded-md hover:bg-purple-700 font-semibold"
+            data-i18n="resetPassword"
+          >
+            Đặt lại mật khẩu
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/designManager.js"></script>
+    <script src="js/ui.js"></script>
+  </body>
+</html>

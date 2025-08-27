@@ -1,0 +1,128 @@
+@media (max-width: 768px) {
+  .header-pre-login .md\:block {
+    display: none;
+  }
+  .header-pre-login .flex.items-center.gap-2 {
+    display: none;
+  }
+  .header-post-login .md\:block {
+    display: none;
+  }
+  .header-post-login .flex.items-center.space-x-4 {
+    display: none;
+  }
+
+  .hamburger-menu {
+    display: block;
+  }
+
+  .hero-section h1 {
+    font-size: 2.5rem;
+  }
+  .hero-section p {
+    font-size: 1rem;
+  }
+  .hero-section button {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+
+  .features-section .grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Updated Footer Styles for Mobile */
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-content > div {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content within each div */
+  }
+
+  .footer-content h3,
+  .footer-content h4,
+  .footer-content p {
+    text-align: center; /* Center text elements */
+  }
+
+  .footer-content ul {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center; /* Center list items */
+  }
+
+  .footer-content ul li {
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-content .flex.space-x-4 {
+    justify-content: center; /* Center social icons */
+  }
+
+  /* Pagination adjustments for mobile */
+  .pagination button {
+    padding: 6px 10px;
+    margin: 0 2px;
+    font-size: 0.875rem; /* text-sm */
+  }
+  .pagination .ellipsis {
+    padding: 6px 4px; /* Smaller padding for ellipsis */
+    font-size: 0.875rem;
+  }
+
+  .design-card {
+    width: 100%;
+  }
+
+  /* Adjust post-login header elements for mobile */
+  .header-post-login .flex.items-center.space-x-4 > *:not(.hamburger-menu) {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Tablet adjustments */
+  .header-post-login .flex.items-center.space-x-4 {
+    gap: 0.5rem; /* Reduce gap between items */
+  }
+  .header-post-login .flex.items-center.space-x-4 > .language-selector,
+  .header-post-login .flex.items-center.space-x-4 > .theme-toggle,
+  .header-post-login .flex.items-center.space-x-4 > .relative, /* Notification button */
+  .header-post-login .flex.items-center.space-x-4 > button:last-child /* Logout button */ {
+    padding: 6px 10px; /* Smaller padding for buttons/selects */
+    font-size: 0.875rem; /* Smaller font size */
+  }
+  .header-post-login #userWelcome {
+    display: none; /* Hide user name on tablet */
+  }
+  .header-post-login #userAvatar {
+    width: 32px; /* Smaller avatar */
+    height: 32px;
+  }
+  .header-post-login .flex.items-center.space-x-2 {
+    margin-left: 0.5rem; /* Adjust margin for avatar */
+  }
+
+  /* Pagination adjustments for tablet */
+  .pagination button {
+    padding: 7px 12px;
+    margin: 0 3px;
+    font-size: 0.9rem;
+  }
+  .pagination .ellipsis {
+    padding: 7px 6px;
+    font-size: 0.9rem;
+  }
+}
