@@ -170,7 +170,12 @@
             onclick="toggleDarkMode(); toggleMobileMenu('preLogin');"
             class="theme-toggle text-custom-primary"
           >
-            <i class="fas fa-moon"></i> Chế độ tối
+            <span id="mobilePreLoginThemeIcon"
+              ><i class="fas fa-moon"></i
+            ></span>
+            <span id="mobilePreLoginThemeText" data-i18n="darkMode"
+              >Chế độ tối</span
+            >
           </button>
           <button
             onclick="showRegisterModal(); toggleMobileMenu('preLogin');"
@@ -566,7 +571,12 @@
             onclick="toggleDarkMode(); toggleMobileMenu('postLogin');"
             class="theme-toggle text-custom-primary"
           >
-            <i class="fas fa-moon"></i> Chế độ tối
+            <span id="mobilePostLoginThemeIcon"
+              ><i class="fas fa-moon"></i
+            ></span>
+            <span id="mobilePostLoginThemeText" data-i18n="darkMode"
+              >Chế độ tối</span
+            >
           </button>
           <button
             onclick="showProfileEditModal(); toggleMobileMenu('postLogin');"

@@ -69,6 +69,7 @@ function toggleDarkMode() {
 }
 
 // Cập nhật theme
+// Cập nhật theme
 function updateTheme() {
   isDarkMode = localStorage.getItem("darkMode") === "true";
   if (isDarkMode) {
@@ -76,11 +77,67 @@ function updateTheme() {
     document.querySelectorAll(".theme-toggle i").forEach((icon) => {
       icon.className = "fas fa-sun";
     });
+    // Update mobile menu theme toggle text and icon
+    const mobilePreLoginThemeText = document.getElementById(
+      "mobilePreLoginThemeText"
+    );
+    const mobilePreLoginThemeIcon = document.getElementById(
+      "mobilePreLoginThemeIcon"
+    );
+    if (mobilePreLoginThemeText) {
+      mobilePreLoginThemeText.textContent =
+        translations[currentLanguage].lightMode || "Chế độ sáng";
+    }
+    if (mobilePreLoginThemeIcon) {
+      mobilePreLoginThemeIcon.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+
+    const mobilePostLoginThemeText = document.getElementById(
+      "mobilePostLoginThemeText"
+    );
+    const mobilePostLoginThemeIcon = document.getElementById(
+      "mobilePostLoginThemeIcon"
+    );
+    if (mobilePostLoginThemeText) {
+      mobilePostLoginThemeText.textContent =
+        translations[currentLanguage].lightMode || "Chế độ sáng";
+    }
+    if (mobilePostLoginThemeIcon) {
+      mobilePostLoginThemeIcon.innerHTML = '<i class="fas fa-sun"></i>';
+    }
   } else {
     document.body.classList.remove("dark-mode");
     document.querySelectorAll(".theme-toggle i").forEach((icon) => {
       icon.className = "fas fa-moon";
     });
+    // Update mobile menu theme toggle text and icon
+    const mobilePreLoginThemeText = document.getElementById(
+      "mobilePreLoginThemeText"
+    );
+    const mobilePreLoginThemeIcon = document.getElementById(
+      "mobilePreLoginThemeIcon"
+    );
+    if (mobilePreLoginThemeText) {
+      mobilePreLoginThemeText.textContent =
+        translations[currentLanguage].darkMode || "Chế độ tối";
+    }
+    if (mobilePreLoginThemeIcon) {
+      mobilePreLoginThemeIcon.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+
+    const mobilePostLoginThemeText = document.getElementById(
+      "mobilePostLoginThemeText"
+    );
+    const mobilePostLoginThemeIcon = document.getElementById(
+      "mobilePostLoginThemeIcon"
+    );
+    if (mobilePostLoginThemeText) {
+      mobilePostLoginThemeText.textContent =
+        translations[currentLanguage].darkMode || "Chế độ tối";
+    }
+    if (mobilePostLoginThemeIcon) {
+      mobilePostLoginThemeIcon.innerHTML = '<i class="fas fa-moon"></i>';
+    }
   }
 }
 

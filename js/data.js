@@ -153,6 +153,9 @@ const translations = {
     myDesigns: "Thiết kế của tôi",
     likedDesigns: "Thiết kế đã thích",
     savedDesigns: "Thiết kế đã lưu",
+    darkMode: "Chế độ tối",
+    lightMode: "Chế độ sáng",
+
     // New time translations
     minutesAgo: "phút trước",
     hoursAgo: "giờ trước",
@@ -314,6 +317,9 @@ const translations = {
     myDesigns: "My Designs",
     likedDesigns: "Liked Designs",
     savedDesigns: "Saved Designs",
+    darkMode: "Dark Mode",
+    lightMode: "Light Mode",
+
     // New time translations
     minutesAgo: "minutes ago",
     hoursAgo: "hours ago",
@@ -475,6 +481,9 @@ const translations = {
     myDesigns: "私のデザイン",
     likedDesigns: "いいねしたデザイン",
     savedDesigns: "保存したデザイン",
+    darkMode: "ダークモード",
+    lightMode: "ライトモード",
+
     // New time translations
     minutesAgo: "分前",
     hoursAgo: "時間前",
