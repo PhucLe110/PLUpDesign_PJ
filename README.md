@@ -1,28 +1,29 @@
 # PLUpDesign
 
-PLUpDesign là một nền tảng chia sẻ thiết kế sáng tạo, nơi người dùng có thể khám phá, tải lên và tương tác với các thiết kế độc đáo. Dự án được xây dựng với mục tiêu tạo ra một cộng đồng cho các nhà thiết kế sáng tạo, giúp họ chia sẻ ý tưởng và nhận phản hồi từ người khác.
+PLUpDesign is a creative design-sharing platform where users can explore, upload, and interact with unique designs.
+The project was built with the goal of creating a community for creative designers, helping them share ideas and receive feedback from others.
 
-## Tính năng
+## ️🤹 Features
 
-- **Khám Phá Thiết Kế**: Người dùng có thể duyệt qua các thiết kế được tải lên bởi cộng đồng.
-- **Tải Lên Thiết Kế**: Người dùng có thể tải lên các thiết kế của riêng mình và chia sẻ với cộng đồng.
-- **Thư Viện Cá Nhân**: Người dùng có thể lưu trữ và quản lý các thiết kế yêu thích của mình.
-- **Phân Tích AI**: Hệ thống AI sẽ đánh giá và đưa ra gợi ý cải thiện cho thiết kế của người dùng.
-- **Bình Luận và Tương Tác**: Người dùng có thể bình luận và tương tác với các thiết kế khác.
+- **Explore Designs**: Users can browse designs uploaded by the community.
+- **Upload Designs**: Users can upload their own designs and share them with the community.
+- **Personal Library**: Users can save and manage their favorite designs.
+- **AI Analysis**: The AI system evaluates and suggests improvements for user designs.
+- **Comments & Interaction**: Users can comment on and interact with other designs.
 
-## Công Nghệ Sử Dụng
+## ⚙ Technologies Used
 
 - HTML
 - CSS (Tailwind CSS)
 - JavaScript
-- Local Storage (cho việc lưu trữ dữ liệu người dùng)
+- Local Storage (for storing user data)
 
-## Cài Đặt
+## ⏬ Installation
 
 git clone https://github.com/PhucLe110/PLUpDesign_PJ.git
 
 cd PLUpDesign_PJ
 
-## Chạy thử
+## 💻 Demo
 
 https://phucle110.github.io/PLUpDesign_PJ/
