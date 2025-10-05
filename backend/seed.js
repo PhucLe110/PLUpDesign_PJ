@@ -1,496 +1,47 @@
-// Dữ liệu đa ngôn ngữ
-const translations = {
-  vi: {
-    home: "Trang chủ",
-    features: "Tính năng",
-    community: "Cộng đồng",
-    register: "Đăng ký",
-    login: "Đăng nhập",
-    heroTitle: "Nền tảng chia sẻ thiết kế sáng tạo",
-    heroSubtitle:
-      "Chia sẻ, đánh giá và khám phá các thiết kế độc đáo. Cộng đồng dành cho các nhà thiết kế sáng tạo.",
-    getStarted: "Bắt đầu ngay",
-    feature: "Tính năng",
-    featureTitle: "Tính năng nổi bật",
-    feature1Title: "Upload Thiết kế",
-    feature1Desc:
-      "Chia sẻ các thiết kế của bạn với cộng đồng một cách dễ dàng và nhanh chóng.",
-    feature2Title: "AI Đánh giá",
-    feature2Desc:
-      "Hệ thống AI thông minh đánh giá và gợi ý cải thiện cho thiết kế của bạn.",
-    feature3Title: "Thư viện cá nhân",
-    feature3Desc:
-      "Lưu trữ và quản lý tất cả thiết kế yêu thích của bạn một cách khoa học.",
-    discover: "Khám phá",
-    upload: "Upload",
-    library: "Thư viện",
-    logout: "Đăng xuất",
-    notifications: "Thông báo",
-    notification1: "Thiết kế của bạn đã được phê duyệt!",
-    notification2: "Có người đã thích thiết kế của bạn.",
-    notification3: "Có bình luận mới trên thiết kế của bạn.",
-    markAllRead: "Đánh dấu đã đọc tất cả",
-    discoverTitle: "Khám phá thiết kế mới",
-    uploadTitle: "Upload thiết kế mới",
-    uploadInstructions: "Kéo thả file thiết kế hoặc click để chọn",
-    chooseFile: "Chọn file",
-    designTitle: "Tiêu đề thiết kế",
-    designDescription: "Mô tả",
-    uploadDesign: "Upload thiết kế",
-    libraryTitle: "Thư viện của bạn",
-    aiAnalysis: "Phân tích AI",
-    aiCreativity: "Độ sáng tạo:",
-    aiCreativityDesc: "Thiết kế có nhiều yếu tố độc đáo",
-    aiColors: "Màu sắc:",
-    aiColorsDesc: "Phối màu hài hòa, phù hợp với xu hướng",
-    aiSuggestions: "Gợi ý:",
-    aiSuggestionsDesc: "Có thể thêm hiệu ứng chuyển động nhẹ",
-    aiResult: "Kết quả:",
-    aiResultSuccess: "Thiết kế đạt chuẩn để chia sẻ",
-    aiResultDuplicate: "Thiết kế trùng lặp với sản phẩm khác",
-    approve: "Phê duyệt",
-    reject: "Từ chối",
-    close: "Đóng",
-    comments: "Bình luận",
-    commentPlaceholder: "Viết bình luận...",
-    send: "Gửi",
-    password: "Mật khẩu",
-    email: "Email",
-    noAccount: "Chưa có tài khoản?",
-    registerNow: "Đăng ký ngay",
-    fullName: "Họ và tên",
-    confirmPassword: "Xác nhận mật khẩu",
-    haveAccount: "Đã có tài khoản?",
-    loginNow: "Đăng nhập ngay",
-    welcome: "Xin chào",
-    searchPlaceholder: "Tìm kiếm thiết kế...",
-    yourDesign: "Của bạn",
-    liked: "Đã thích",
-    saved: "Đã lưu",
-    by: "Tác giả",
-    noDesigns: "Chưa có thiết kế nào trong thư viện",
-    uploadSuccess: "Upload thiết kế thành công!",
-    duplicateDesign: "Thiết kế bị trùng lặp, không thể upload!",
-    designRejected: "Thiết kế đã bị từ chối!",
-    fillAllFields: "Vui lòng điền đầy đủ thông tin!",
-    passwordNotMatch: "Mật khẩu xác nhận không khớp!",
-    emailExists: "Email đã tồn tại!",
-    registerSuccess: "Đăng ký thành công!",
-    loginFailed: "Email hoặc mật khẩu không đúng!",
-    privacyPolicy: "Chính sách bảo mật",
-    termsOfService: "Điều khoản dịch vụ",
-    contactUs: "Liên hệ",
-    guide1: "Đăng ký và Đăng nhập",
-    guide2: "Upload Thiết kế",
-    guide3: "Khám phá và Tương tác",
-    aiSuggestionDuplicate: "Thiết kế có thể trùng lặp, cân nhắc chỉnh sửa.",
-    quickLinks: "Liên kết nhanh",
-    aboutUs: "Về chúng tôi",
-    userGuides: "Hướng dẫn sử dụng",
-    guide4: "Sử dụng AI phân tích",
-    noResults: "Không tìm thấy thiết kế nào phù hợp.",
-    noComments: "Chưa có bình luận nào.",
-    forgotPassword: "Quên mật khẩu?",
-    rememberMe: "Ghi nhớ đăng nhập",
-    selectAvatar: "Chọn Avatar",
-    confirmLogoutTitle: "Xác nhận đăng xuất",
-    confirmLogoutMessage: "Bạn có chắc chắn muốn đăng xuất không?",
-    confirm: "Xác nhận",
-    cancel: "Hủy",
-    profileUpdateSuccess: "Cập nhật profile thành công!",
-    profileUpdateError: "Tên không được để trống!",
-    resetPassword: "Đặt lại mật khẩu",
-    resetPasswordSuccess: "Đặt lại mật khẩu thành công!",
-    invalidEmail: "Email không tồn tại!",
-    invalidCode: "Mã xác nhận không đúng!",
-    passwordResetTitle: "Đặt lại mật khẩu",
-    passwordResetMessage: "Mật khẩu của bạn đã được đặt lại thành công.",
-    deleteDesignConfirmTitle: "Xác nhận xóa thiết kế",
-    deleteDesignConfirmMessage:
-      "Bạn có chắc chắn muốn xóa thiết kế này không? Hành động này không thể hoàn tác.",
-    deleteSuccess: "Thiết kế đã được xóa thành công!",
-    deleteError: "Không thể xóa thiết kế.",
-    editComment: "Sửa",
-    deleteComment: "Xóa",
-    saveComment: "Lưu",
-    commentEditTimeLimit:
-      "Bạn chỉ có thể sửa bình luận trong vòng 5 phút sau khi đăng.",
-    editProfile: "Chỉnh sửa Profile",
-    saveChanges: "Lưu thay đổi",
-    enterEmailForCode: "Vui lòng nhập email của bạn để nhận mã xác nhận.",
-    sendVerificationCode: "Gửi mã xác nhận",
-    backToLogin: "Quay lại Đăng nhập",
-    codeSentEnterNewPassword:
-      "Mã xác nhận đã được gửi đến email của bạn. Vui lòng nhập mã và mật khẩu mới.",
-    verificationCode: "Mã xác nhận",
-    newPassword: "Mật khẩu mới",
-    confirmNewPassword: "Xác nhận mật khẩu mới",
-    deleteAllMyDesigns: "Xóa tất cả thiết kế của tôi",
-    deleteAllMyDesignsConfirmTitle: "Xác nhận xóa tất cả thiết kế",
-    deleteAllMyDesignsConfirmMessage:
-      "Bạn có chắc chắn muốn xóa TẤT CẢ thiết kế của mình không? Hành động này không thể hoàn tác.",
-    previous: "Trước",
-    next: "Sau",
-    noNewNotifications: "Không có thông báo mới.",
-    allNotificationsRead: "Đã đánh dấu tất cả thông báo là đã đọc.",
-    loginToViewLibrary: "Vui lòng đăng nhập để xem thư viện của bạn.",
-    commentCannotBeEmpty: "Bình luận không được để trống!",
-    commentDeleted: "Bình luận đã được xóa.",
-    commentNotFound: "Không tìm thấy bình luận để xóa.",
-    selectedFile: "File đã chọn",
-    loginRequired: "Bạn cần đăng nhập để thực hiện hành động này.",
-    allDesignsDeletedSuccess: "Tất cả thiết kế của bạn đã được xóa thành công!",
-    noDesignsToDelete: "Bạn không có thiết kế nào để xóa.",
-    confirmDeleteCommentTitle: "Xác nhận xóa bình luận",
-    confirmDeleteCommentMessage:
-      "Bạn có chắc chắn muốn xóa bình luận này không?",
-    codeSentInfo:
-      "Mã xác nhận đã được gửi đến email của bạn (mọi mã đều hợp lệ).",
-    noEmailFoundForReset:
-      "Không tìm thấy email để đặt lại mật khẩu. Vui lòng thử lại.",
-    // New translations for library filters
-    all: "Tất cả",
-    myDesigns: "Thiết kế của tôi",
-    likedDesigns: "Thiết kế đã thích",
-    savedDesigns: "Thiết kế đã lưu",
-    // New time translations
-    minutesAgo: "phút trước",
-    hoursAgo: "giờ trước",
-    daysAgo: "ngày trước",
-    weeksAgo: "tuần trước",
-    monthsAgo: "tháng trước",
-    yearsAgo: "năm trước",
-    justNow: "Vừa xong",
-  },
-  en: {
-    home: "Home",
-    features: "Features",
-    community: "Community",
-    register: "Register",
-    login: "Login",
-    heroTitle: "Creative Design Sharing Platform",
-    heroSubtitle:
-      "Share, evaluate and discover unique designs. Community for creative designers.",
-    getStarted: "Get Started",
-    feature: "Feature",
-    featureTitle: "Featured",
-    feature1Title: "Upload Design",
-    feature1Desc: "Share your designs with the community easily and quickly.",
-    feature2Title: "AI Evaluation",
-    feature2Desc:
-      "Smart AI system evaluates and suggests improvements for your design.",
-    feature3Title: "Personal Library",
-    feature3Desc: "Store and manage all your favorite designs scientifically.",
-    discover: "Discover",
-    upload: "Upload",
-    library: "Library",
-    logout: "Logout",
-    notifications: "Notifications",
-    notification1: "Your design has been approved!",
-    notification2: "Someone liked your design.",
-    notification3: "New comment on your design.",
-    markAllRead: "Mark all as read",
-    discoverTitle: "Discover New Designs",
-    uploadTitle: "Upload New Design",
-    uploadInstructions: "Drag and drop design file or click to choose",
-    chooseFile: "Choose File",
-    designTitle: "Design Title",
-    designDescription: "Description",
-    uploadDesign: "Upload Design",
-    libraryTitle: "Your Library",
-    aiAnalysis: "AI Analysis",
-    aiCreativity: "Creativity:",
-    aiCreativityDesc: "Design has many unique elements",
-    aiColors: "Colors:",
-    aiColorsDesc: "Harmonious color combination, trending",
-    aiSuggestions: "Suggestions:",
-    aiSuggestionsDesc: "Could add light motion effects",
-    aiResult: "Result:",
-    aiResultSuccess: "Design meets standards for sharing",
-    aiResultDuplicate: "Design duplicates existing product",
-    approve: "Approve",
-    reject: "Reject",
-    close: "Close",
-    comments: "Comments",
-    commentPlaceholder: "Write a comment...",
-    send: "Send",
-    password: "Password",
-    email: "Email",
-    noAccount: "No account?",
-    registerNow: "Register now",
-    fullName: "Full Name",
-    confirmPassword: "Confirm Password",
-    haveAccount: "Have account?",
-    loginNow: "Login now",
-    welcome: "Welcome",
-    searchPlaceholder: "Search designs...",
-    yourDesign: "Your Design",
-    liked: "Liked",
-    saved: "Saved",
-    by: "By",
-    noDesigns: "No designs in library yet",
-    uploadSuccess: "Design uploaded successfully!",
-    duplicateDesign: "Duplicate design, cannot upload!",
-    designRejected: "Design rejected!",
-    fillAllFields: "Please fill in all fields!",
-    passwordNotMatch: "Password confirmation does not match!",
-    emailExists: "Email already exists!",
-    registerSuccess: "Registration successful!",
-    loginFailed: "Incorrect email or password!",
-    privacyPolicy: "Privacy Policy",
-    termsOfService: "Terms of Service",
-    contactUs: "Contact Us",
-    guide1: "Register and Login",
-    guide2: "Upload Design",
-    guide3: "Explore and Interact",
-    aiSuggestionDuplicate: "Design might be a duplicate, consider editing.",
-    quickLinks: "Quick Links",
-    aboutUs: "About Us",
-    userGuides: "User Guides",
-    guide4: "Using AI Analysis",
-    noResults: "No designs found.",
-    noComments: "No comments yet.",
-    forgotPassword: "Forgot Password?",
-    rememberMe: "Remember Me",
-    selectAvatar: "Select Avatar",
-    confirmLogoutTitle: "Confirm Logout",
-    confirmLogoutMessage: "Are you sure you want to log out?",
-    confirm: "Confirm",
-    cancel: "Cancel",
-    profileUpdateSuccess: "Profile updated successfully!",
-    profileUpdateError: "Name cannot be empty!",
-    resetPassword: "Reset password",
-    resetPasswordSuccess: "Password reset successfully!",
-    invalidEmail: "Email does not exist!",
-    invalidCode: "Invalid verification code!",
-    passwordResetTitle: "Password Reset",
-    passwordResetMessage: "Your password has been successfully reset.",
-    deleteDesignConfirmTitle: "Confirm Delete Design",
-    deleteDesignConfirmMessage:
-      "Are you sure you want to delete this design? This action cannot be undone.",
-    deleteSuccess: "Design deleted successfully!",
-    deleteError: "Could not delete design.",
-    editComment: "Edit",
-    deleteComment: "Delete",
-    saveComment: "Save",
-    commentEditTimeLimit:
-      "You can only edit comments within 5 minutes of posting.",
-    editProfile: "Edit Profile",
-    saveChanges: "Save Changes",
-    enterEmailForCode:
-      "Please enter your email to receive a verification code.",
-    sendVerificationCode: "Send Verification Code",
-    backToLogin: "Back to Login",
-    codeSentEnterNewPassword:
-      "A verification code has been sent to your email. Please enter the code and your new password.",
-    verificationCode: "Verification Code",
-    newPassword: "New Password",
-    confirmNewPassword: "Confirm New Password",
-    deleteAllMyDesigns: "Delete All My Designs",
-    deleteAllMyDesignsConfirmTitle: "Confirm Delete All Designs",
-    deleteAllMyDesignsConfirmMessage:
-      "Are you sure you want to delete ALL of your designs? This action cannot be undone.",
-    previous: "Previous",
-    next: "Next",
-    noNewNotifications: "No new notifications.",
-    allNotificationsRead: "All notifications marked as read.",
-    loginToViewLibrary: "Please login to view your library.",
-    commentCannotBeEmpty: "Comment cannot be empty!",
-    commentDeleted: "Comment deleted.",
-    commentNotFound: "Comment not found.",
-    selectedFile: "Selected file",
-    loginRequired: "You need to be logged in to perform this action.",
-    allDesignsDeletedSuccess:
-      "All your designs have been deleted successfully!",
-    noDesignsToDelete: "You have no designs to delete.",
-    confirmDeleteCommentTitle: "Confirm Delete Comment",
-    confirmDeleteCommentMessage:
-      "Are you sure you want to delete this comment?",
-    codeSentInfo:
-      "A verification code has been sent to your email (any code is valid).",
-    noEmailFoundForReset: "No email found for reset. Please try again.",
-    // New translations for library filters
-    all: "All",
-    myDesigns: "My Designs",
-    likedDesigns: "Liked Designs",
-    savedDesigns: "Saved Designs",
-    // New time translations
-    minutesAgo: "minutes ago",
-    hoursAgo: "hours ago",
-    daysAgo: "days ago",
-    weeksAgo: "weeks ago",
-    monthsAgo: "months ago",
-    yearsAgo: "years ago",
-    justNow: "Just now",
-  },
-  jp: {
-    home: "ホーム",
-    features: "機能",
-    community: "コミュニティ",
-    register: "登録",
-    login: "ログイン",
-    heroTitle: "クリエイティブデザイン共有プラットフォーム",
-    heroSubtitle:
-      "ユニークなデザインを共有、評価、発見。クリエイティブなデザイナーのためのコミュニティ。",
-    getStarted: "始める",
-    feature: "特徴",
-    featureTitle: "特徴",
-    feature1Title: "デザインアップロード",
-    feature1Desc: "コミュニティと簡単かつ迅速にデザインを共有できます。",
-    feature2Title: "AI評価",
-    feature2Desc: "スマートAIシステムがデザインを評価し、改善を提案します。",
-    feature3Title: "個人ライブラリ",
-    feature3Desc:
-      "すべてのお気に入りのデザインを科学的に保存および管理します。",
-    discover: "発見",
-    upload: "アップロード",
-    library: "ライブラリ",
-    logout: "ログアウト",
-    notifications: "通知",
-    notification1: "デザインが承認されました！",
-    notification2: "誰かがあなたのデザインをいいねしました。",
-    notification3: "デザインに新しいコメントがあります。",
-    markAllRead: "すべて既読にする",
-    discoverTitle: "新しいデザインを発見",
-    uploadTitle: "新しいデザインをアップロード",
-    uploadInstructions:
-      "デザインファイルをドラッグアンドドロップするかクリックして選択",
-    chooseFile: "ファイルを選択",
-    designTitle: "デザインタイトル",
-    designDescription: "説明",
-    uploadDesign: "デザインをアップロード",
-    libraryTitle: "あなたのライブラリ",
-    aiAnalysis: "AI分析",
-    aiCreativity: "創造性:",
-    aiCreativityDesc: "デザインに多くの独自要素があります",
-    aiColors: "色:",
-    aiColorsDesc: "調和のとれた色の組み合わせ、トレンド",
-    aiSuggestions: "提案:",
-    aiSuggestionsDesc: "軽いモーション効果を追加できます",
-    aiResult: "結果:",
-    aiResultSuccess: "デザインは共有基準を満たしています",
-    aiResultDuplicate: "デザインが既存製品と重複しています",
-    approve: "承認",
-    reject: "却下",
-    close: "閉じる",
-    comments: "コメント",
-    commentPlaceholder: "コメントを書く...",
-    send: "送信",
-    password: "パスワード",
-    email: "メール",
-    noAccount: "アカウントをお持ちではありませんか？",
-    registerNow: "今すぐ登録",
-    fullName: "氏名",
-    confirmPassword: "パスワード確認",
-    haveAccount: "アカウントをお持ちですか？",
-    loginNow: "今すぐログイン",
-    welcome: "ようこそ",
-    searchPlaceholder: "デザインを検索...",
-    yourDesign: "あなたのデザイン",
-    liked: "いいね済み",
-    saved: "保存済み",
-    by: "著者",
-    noDesigns: "ライブラリにデザインがありません",
-    uploadSuccess: "デザインが正常にアップロードされました！",
-    duplicateDesign: "重複するデザイン、アップロードできません！",
-    designRejected: "デザインは拒否されました！",
-    fillAllFields: "すべてのフィールドに入力してください！",
-    passwordNotMatch: "パスワードが一致しません！",
-    emailExists: "メールはすでに存在します！",
-    registerSuccess: "登録成功！",
-    loginFailed: "メールまたはパスワードが正しくありません！",
-    privacyPolicy: "プライバシーポリシー",
-    termsOfService: "利用規約",
-    contactUs: "お問い合わせ",
-    guide1: "登録とログイン",
-    guide2: "デザインのアップロード",
-    guide3: "探索とインタラクション",
-    aiSuggestionDuplicate:
-      "デザインが重複している可能性があります。編集を検討してください。",
-    quickLinks: "クイックリンク",
-    aboutUs: "私たちについて",
-    userGuides: "ユーザーガイド",
-    guide4: "AI分析の使用",
-    noResults: "デザインが見つかりませんでした。",
-    noComments: "コメントはまだありません。",
-    forgotPassword: "パスワードをお忘れですか？",
-    rememberMe: "私を覚えていてください",
-    selectAvatar: "アバターを選択",
-    confirmLogoutTitle: "ログアウトを確認",
-    confirmLogoutMessage: "本当にログアウトしますか？",
-    confirm: "確認",
-    cancel: "キャンセル",
-    profileUpdateSuccess: "プロフィールが正常に更新されました！",
-    profileUpdateError: "名前は空にできません！",
-    resetPassword: "パスワードをリセット",
-    resetPasswordSuccess: "パスワードが正常にリセットされました！",
-    invalidEmail: "メールが存在しません！",
-    invalidCode: "無効な確認コード！",
-    passwordResetTitle: "パスワードのリセット",
-    passwordResetMessage: "パスワードが正常にリセットされました。",
-    deleteDesignConfirmTitle: "デザインの削除を確認",
-    deleteDesignConfirmMessage:
-      "このデザインを削除してもよろしいですか？この操作は元に戻せません。",
-    deleteSuccess: "デザインが正常に削除されました！",
-    deleteError: "デザインを削除できませんでした。",
-    editComment: "編集",
-    deleteComment: "削除",
-    saveComment: "保存",
-    commentEditTimeLimit: "コメントは投稿後5分以内のみ編集できます。",
-    editProfile: "プロフィールを編集",
-    saveChanges: "変更を保存",
-    enterEmailForCode:
-      "確認コードを受け取るためにメールアドレスを入力してください。",
-    sendVerificationCode: "確認コードを送信",
-    backToLogin: "ログインに戻る",
-    codeSentEnterNewPassword:
-      "確認コードがメールに送信されました。コードと新しいパスワードを入力してください。",
-    verificationCode: "確認コード",
-    newPassword: "新しいパスワード",
-    confirmNewPassword: "新しいパスワードを確認",
-    deleteAllMyDesigns: "すべてのデザインを削除",
-    deleteAllMyDesignsConfirmTitle: "すべてのデザインの削除を確認",
-    deleteAllMyDesignsConfirmMessage:
-      "本当にすべてのデザインを削除しますか？この操作は元に戻せません。",
-    previous: "前へ",
-    next: "次へ",
-    noNewNotifications: "新しい通知はありません。",
-    allNotificationsRead: "すべての通知を既読にしました。",
-    loginToViewLibrary: "ライブラリを表示するにはログインしてください。",
-    commentCannotBeEmpty: "コメントは空にできません！",
-    commentDeleted: "コメントが削除されました。",
-    commentNotFound: "コメントが見つかりませんでした。",
-    selectedFile: "選択されたファイル",
-    loginRequired: "この操作を実行するにはログインが必要です。",
-    allDesignsDeletedSuccess: "すべてのデザインが正常に削除されました！",
-    noDesignsToDelete: "削除するデザインがありません。",
-    confirmDeleteCommentTitle: "コメントの削除を確認",
-    confirmDeleteCommentMessage: "このコメントを削除してもよろしいですか？",
-    codeSentInfo:
-      "確認コードがメールに送信されました（どのコードも有効です）。",
-    noEmailFoundForReset:
-      "リセットするメールが見つかりませんでした。もう一度お試しください。",
-    // New translations for library filters
-    all: "すべて",
-    myDesigns: "私のデザイン",
-    likedDesigns: "いいねしたデザイン",
-    savedDesigns: "保存したデザイン",
-    // New time translations
-    minutesAgo: "分前",
-    hoursAgo: "時間前",
-    daysAgo: "日前",
-    weeksAgo: "週間前",
-    monthsAgo: "ヶ月前",
-    yearsAgo: "年前",
-    justNow: "たった今",
-  },
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const Design = require("./models/Design");
+const User = require("./models/User");
+const bcrypt = require("bcryptjs");
+
+// Load environment variables
+dotenv.config();
+
+// Kết nối DB
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.error("Error connecting to MongoDB:", error.message);
+    process.exit(1);
+  }
 };
 
-// Dữ liệu mẫu
-let sampleDesigns = [
-  // Changed to 'let' to allow modification
+// Sample users (2 user mẫu)
+const sampleUsers = [
   {
-    id: 1,
+    name: "Sample Designer 1",
+    email: "designer1@example.com",
+    password: "123456",
+    avatar:
+      "https://i.pinimg.com/1200x/a0/5c/bb/a05cbbae51343d0449fa60b8b4f392bc.jpg",
+  },
+  {
+    name: "Sample Designer 2",
+    email: "designer2@example.com",
+    password: "123456",
+    avatar:
+      "https://i.pinimg.com/1200x/7a/ea/6f/7aea6fd1a681dbbfc766a9d4e242e674.jpg",
+  },
+];
+
+// Sample designs (9 mẫu, với hình ảnh mới để tránh trùng lặp visual)
+const sampleDesigns = [
+  {
     title: "Logo Modern Brand",
     title_en: "Modern Brand Logo",
     title_jp: "モダンブランドロゴ",
@@ -520,7 +71,6 @@ let sampleDesigns = [
     hashtags: ["logo", "modern", "brand", "technology"],
   },
   {
-    id: 2,
     title: "App Interface Design",
     title_en: "App Interface Design",
     title_jp: "アプリインターフェースデザイン",
@@ -544,7 +94,6 @@ let sampleDesigns = [
     hashtags: ["app", "ui", "mobile", "interface"],
   },
   {
-    id: 3,
     title: "Website Redesign",
     title_en: "Website Redesign",
     title_jp: "ウェブサイトリデザイン",
@@ -561,7 +110,6 @@ let sampleDesigns = [
     hashtags: ["website", "redesign", "corporate", "web"],
   },
   {
-    id: 4,
     title: "E-commerce UI Kit",
     title_en: "E-commerce UI Kit",
     title_jp: "EコマースUIキット",
@@ -585,7 +133,6 @@ let sampleDesigns = [
     hashtags: ["ecommerce", "ui", "kit", "design"],
   },
   {
-    id: 5,
     title: "Dashboard Analytics",
     title_en: "Analytics Dashboard",
     title_jp: "分析ダッシュボード",
@@ -602,7 +149,6 @@ let sampleDesigns = [
     hashtags: ["dashboard", "analytics", "data", "ui"],
   },
   {
-    id: 6,
     title: "Mobile Game Concept",
     title_en: "Mobile Game Concept",
     title_jp: "モバイルゲームコンセプト",
@@ -626,7 +172,6 @@ let sampleDesigns = [
     hashtags: ["game", "mobile", "concept", "art"],
   },
   {
-    id: 7,
     title: "Food Delivery App",
     title_en: "Food Delivery App",
     title_jp: "フードデリバリーアプリ",
@@ -644,7 +189,6 @@ let sampleDesigns = [
     hashtags: ["food", "app", "delivery", "ui"],
   },
   {
-    id: 8,
     title: "Travel Website Layout",
     title_en: "Travel Website Layout",
     title_jp: "旅行ウェブサイトレイアウト",
@@ -668,7 +212,6 @@ let sampleDesigns = [
     hashtags: ["travel", "website", "layout", "web"],
   },
   {
-    id: 9,
     title: "Fitness App Design",
     title_en: "Fitness App Design",
     title_jp: "フィットネスアプリデザイン",
@@ -685,7 +228,6 @@ let sampleDesigns = [
     hashtags: ["fitness", "app", "health", "ui"],
   },
   {
-    id: 10,
     title: "Smart Home Dashboard",
     title_en: "Smart Home Dashboard",
     title_jp: "スマートホームダッシュボード",
@@ -702,7 +244,6 @@ let sampleDesigns = [
     hashtags: ["smarthome", "dashboard", "iot", "ui"],
   },
   {
-    id: 11,
     title: "Online Learning Platform",
     title_en: "Online Learning Platform",
     title_jp: "オンライン学習プラットフォーム",
@@ -720,7 +261,6 @@ let sampleDesigns = [
     hashtags: ["education", "online", "platform", "ui"],
   },
   {
-    id: 12,
     title: "Music Player UI",
     title_en: "Music Player UI",
     title_jp: "音楽プレーヤーUI",
@@ -737,7 +277,6 @@ let sampleDesigns = [
     hashtags: ["music", "player", "ui", "minimalist"],
   },
   {
-    id: 13,
     title: "Weather App Concept",
     title_en: "Weather App Concept",
     title_jp: "天気アプリコンセプト",
@@ -754,7 +293,6 @@ let sampleDesigns = [
     hashtags: ["weather", "app", "concept", "animation"],
   },
   {
-    id: 14,
     title: "NFT Marketplace UI",
     title_en: "NFT Marketplace UI",
     title_jp: "NFTマーケットプレイスUI",
@@ -771,7 +309,6 @@ let sampleDesigns = [
     hashtags: ["nft", "marketplace", "crypto", "ui"],
   },
   {
-    id: 15,
     title: "Podcast App Design",
     title_en: "Podcast App Design",
     title_jp: "ポッドキャストアプリデザイン",
@@ -789,7 +326,6 @@ let sampleDesigns = [
     hashtags: ["podcast", "app", "audio", "ux"],
   },
   {
-    id: 16,
     title: "VR Game Environment",
     title_en: "VR Game Environment",
     title_jp: "VRゲーム環境",
@@ -806,7 +342,6 @@ let sampleDesigns = [
     hashtags: ["vr", "game", "environment", "3d"],
   },
   {
-    id: 17,
     title: "Medical App UI",
     title_en: "Medical App UI",
     title_jp: "医療アプリUI",
@@ -824,7 +359,6 @@ let sampleDesigns = [
     hashtags: ["medical", "app", "health", "ui"],
   },
   {
-    id: 18,
     title: "Smartwatch Interface",
     title_en: "Smartwatch Interface",
     title_jp: "スマートウォッチインターフェース",
@@ -841,7 +375,6 @@ let sampleDesigns = [
     hashtags: ["smartwatch", "wearable", "ui", "minimalist"],
   },
   {
-    id: 19,
     title: "Online Banking App",
     title_en: "Online Banking App",
     title_jp: "オンラインバンキングアプリ",
@@ -858,7 +391,6 @@ let sampleDesigns = [
     hashtags: ["banking", "finance", "app", "security"],
   },
   {
-    id: 20,
     title: "Education Platform UI",
     title_en: "Education Platform UI",
     title_jp: "教育プラットフォームUI",
@@ -875,7 +407,6 @@ let sampleDesigns = [
     hashtags: ["education", "platform", "online", "ui"],
   },
   {
-    id: 21,
     title: "Gaming Website Concept",
     title_en: "Gaming Website Concept",
     title_jp: "ゲームウェブサイトコンセプト",
@@ -892,7 +423,6 @@ let sampleDesigns = [
     hashtags: ["gaming", "website", "concept", "web"],
   },
   {
-    id: 22,
     title: "Smart Home Security",
     title_en: "Smart Home Security",
     title_jp: "スマートホームセキュリティ",
@@ -909,7 +439,6 @@ let sampleDesigns = [
     hashtags: ["smarthome", "security", "iot", "app"],
   },
   {
-    id: 23,
     title: "Fashion E-commerce",
     title_en: "Fashion E-commerce",
     title_jp: "ファッションEコマース",
@@ -926,7 +455,6 @@ let sampleDesigns = [
     hashtags: ["fashion", "ecommerce", "website", "shop"],
   },
   {
-    id: 24,
     title: "Recipe App UI",
     title_en: "Recipe App UI",
     title_jp: "レシピアプリUI",
@@ -943,7 +471,6 @@ let sampleDesigns = [
     hashtags: ["recipe", "food", "app", "cooking"],
   },
   {
-    id: 25,
     title: "Event Management Dashboard",
     title_en: "Event Management Dashboard",
     title_jp: "イベント管理ダッシュボード",
@@ -960,7 +487,6 @@ let sampleDesigns = [
     hashtags: ["event", "dashboard", "management", "ui"],
   },
   {
-    id: 26,
     title: "Smart City Map",
     title_en: "Smart City Map",
     title_jp: "スマートシティマップ",
@@ -977,7 +503,6 @@ let sampleDesigns = [
     hashtags: ["smartcity", "map", "urban", "iot"],
   },
   {
-    id: 27,
     title: "AR Shopping App",
     title_en: "AR Shopping App",
     title_jp: "ARショッピングアプリ",
@@ -994,7 +519,6 @@ let sampleDesigns = [
     hashtags: ["ar", "shopping", "app", "retail"],
   },
   {
-    id: 28,
     title: "Cybersecurity Dashboard",
     title_en: "Cybersecurity Dashboard",
     title_jp: "サイバーセキュリティダッシュボード",
@@ -1011,7 +535,6 @@ let sampleDesigns = [
     hashtags: ["cybersecurity", "dashboard", "security", "it"],
   },
   {
-    id: 29,
     title: "Sustainable Energy App",
     title_en: "Sustainable Energy App",
     title_jp: "持続可能エネルギーアプリ",
@@ -1028,7 +551,6 @@ let sampleDesigns = [
     hashtags: ["energy", "sustainable", "green", "app"],
   },
   {
-    id: 30,
     title: "AI Chatbot Interface",
     title_en: "AI Chatbot Interface",
     title_jp: "AIチャットボットインターフェース",
@@ -1045,7 +567,6 @@ let sampleDesigns = [
     hashtags: ["ai", "chatbot", "interface", "ux"],
   },
   {
-    id: 31,
     title: "Space Exploration UI",
     title_en: "Space Exploration UI",
     title_jp: "宇宙探査UI",
@@ -1062,7 +583,6 @@ let sampleDesigns = [
     hashtags: ["space", "exploration", "ui", "science"],
   },
   {
-    id: 32,
     title: "Smart Farming Dashboard",
     title_en: "Smart Farming Dashboard",
     title_jp: "スマート農業ダッシュボード",
@@ -1079,7 +599,6 @@ let sampleDesigns = [
     hashtags: ["farming", "agriculture", "iot", "dashboard"],
   },
   {
-    id: 33,
     title: "Language Learning App",
     title_en: "Language Learning App",
     title_jp: "語学学習アプリ",
@@ -1096,7 +615,6 @@ let sampleDesigns = [
     hashtags: ["language", "learning", "education", "app"],
   },
   {
-    id: 34,
     title: "Robotics Control UI",
     title_en: "Robotics Control UI",
     title_jp: "ロボット制御UI",
@@ -1113,7 +631,6 @@ let sampleDesigns = [
     hashtags: ["robotics", "control", "automation", "ui"],
   },
   {
-    id: 35,
     title: "Virtual Event Platform",
     title_en: "Virtual Event Platform",
     title_jp: "バーチャルイベントプラットフォーム",
@@ -1130,7 +647,6 @@ let sampleDesigns = [
     hashtags: ["virtual", "event", "platform", "online"],
   },
   {
-    id: 36,
     title: "Data Visualization Tool",
     title_en: "Data Visualization Tool",
     title_jp: "データ視覚化ツール",
@@ -1147,7 +663,6 @@ let sampleDesigns = [
     hashtags: ["data", "visualization", "tool", "analytics"],
   },
   {
-    id: 37,
     title: "Personal Finance Tracker",
     title_en: "Personal Finance Tracker",
     title_jp: "個人財務トラッカー",
@@ -1164,7 +679,6 @@ let sampleDesigns = [
     hashtags: ["finance", "personal", "money", "app"],
   },
   {
-    id: 38,
     title: "Smart Retail Solution",
     title_en: "Smart Retail Solution",
     title_jp: "スマートリテールソリューション",
@@ -1181,7 +695,6 @@ let sampleDesigns = [
     hashtags: ["retail", "smart", "solution", "business"],
   },
   {
-    id: 39,
     title: "Digital Art Gallery",
     title_en: "Digital Art Gallery",
     title_jp: "デジタルアートギャラリー",
@@ -1198,7 +711,6 @@ let sampleDesigns = [
     hashtags: ["art", "digital", "gallery", "creative"],
   },
   {
-    id: 40,
     title: "Home Automation App",
     title_en: "Home Automation App",
     title_jp: "ホームオートメーションアプリ",
@@ -1215,7 +727,6 @@ let sampleDesigns = [
     hashtags: ["home", "automation", "iot", "app"],
   },
   {
-    id: 41,
     title: "Fitness Tracker Dashboard",
     title_en: "Fitness Tracker Dashboard",
     title_jp: "フィットネストラッカーダッシュボード",
@@ -1232,7 +743,6 @@ let sampleDesigns = [
     hashtags: ["fitness", "tracker", "dashboard", "health"],
   },
   {
-    id: 42,
     title: "Smart Office Solution",
     title_en: "Smart Office Solution",
     title_jp: "スマートオフィスソリューション",
@@ -1249,7 +759,6 @@ let sampleDesigns = [
     hashtags: ["office", "smart", "solution", "work"],
   },
   {
-    id: 43,
     title: "Eco-friendly Product Design",
     title_en: "Eco-friendly Product Design",
     title_jp: "環境に優しい製品デザイン",
@@ -1266,7 +775,6 @@ let sampleDesigns = [
     hashtags: ["eco", "product", "design", "sustainable"],
   },
   {
-    id: 44,
     title: "Interactive Kiosk UI",
     title_en: "Interactive Kiosk UI",
     title_jp: "インタラクティブキオスクUI",
@@ -1283,7 +791,6 @@ let sampleDesigns = [
     hashtags: ["kiosk", "interactive", "ui", "public"],
   },
   {
-    id: 45,
     title: "Blockchain Wallet UI",
     title_en: "Blockchain Wallet UI",
     title_jp: "ブロックチェーンウォレットUI",
@@ -1300,7 +807,6 @@ let sampleDesigns = [
     hashtags: ["blockchain", "wallet", "crypto", "ui"],
   },
   {
-    id: 46,
     title: "Smart Agriculture Drone",
     title_en: "Smart Agriculture Drone",
     title_jp: "スマート農業ドローン",
@@ -1317,7 +823,6 @@ let sampleDesigns = [
     hashtags: ["agriculture", "drone", "smart", "farming"],
   },
   {
-    id: 47,
     title: "AI Assistant Interface",
     title_en: "AI Assistant Interface",
     title_jp: "AIアシスタントインターフェース",
@@ -1334,7 +839,6 @@ let sampleDesigns = [
     hashtags: ["ai", "assistant", "interface", "voice"],
   },
   {
-    id: 48,
     title: "Cloud Storage UI",
     title_en: "Cloud Storage UI",
     title_jp: "クラウドストレージUI",
@@ -1351,7 +855,6 @@ let sampleDesigns = [
     hashtags: ["cloud", "storage", "ui", "data"],
   },
   {
-    id: 49,
     title: "Smart Home Energy Monitor",
     title_en: "Smart Home Energy Monitor",
     title_jp: "スマートホームエネルギーモニター",
@@ -1368,7 +871,6 @@ let sampleDesigns = [
     hashtags: ["smarthome", "energy", "monitor", "iot"],
   },
   {
-    id: 50,
     title: "Virtual Classroom UI",
     title_en: "Virtual Classroom UI",
     title_jp: "バーチャル教室UI",
@@ -1385,7 +887,6 @@ let sampleDesigns = [
     hashtags: ["virtual", "classroom", "education", "online"],
   },
   {
-    id: 51,
     title: "Wearable Health Device",
     title_en: "Wearable Health Device",
     title_jp: "ウェアラブルヘルスデバイス",
@@ -1402,7 +903,6 @@ let sampleDesigns = [
     hashtags: ["wearable", "health", "device", "medical"],
   },
   {
-    id: 52,
     title: "Smart City Traffic Control",
     title_en: "Smart City Traffic Control",
     title_jp: "スマートシティ交通制御",
@@ -1419,7 +919,6 @@ let sampleDesigns = [
     hashtags: ["smartcity", "traffic", "control", "iot"],
   },
   {
-    id: 53,
     title: "Augmented Reality Game",
     title_en: "Augmented Reality Game",
     title_jp: "拡張現実ゲーム",
@@ -1436,7 +935,6 @@ let sampleDesigns = [
     hashtags: ["ar", "game", "reality", "interactive"],
   },
   {
-    id: 54,
     title: "AI-powered Healthcare",
     title_en: "AI-powered Healthcare",
     title_jp: "AI搭載ヘルスケア",
@@ -1453,7 +951,6 @@ let sampleDesigns = [
     hashtags: ["ai", "healthcare", "medical", "solution"],
   },
   {
-    id: 55,
     title: "Smart Logistics Dashboard",
     title_en: "Smart Logistics Dashboard",
     title_jp: "スマートロジスティクスダッシュボード",
@@ -1470,7 +967,6 @@ let sampleDesigns = [
     hashtags: ["logistics", "smart", "dashboard", "supplychain"],
   },
   {
-    id: 56,
     title: "Green Building Design",
     title_en: "Green Building Design",
     title_jp: "グリーンビルディングデザイン",
@@ -1487,7 +983,6 @@ let sampleDesigns = [
     hashtags: ["green", "building", "design", "architecture"],
   },
   {
-    id: 57,
     title: "Interactive Museum Guide",
     title_en: "Interactive Museum Guide",
     title_jp: "インタラクティブ博物館ガイド",
@@ -1504,7 +999,6 @@ let sampleDesigns = [
     hashtags: ["museum", "interactive", "guide", "culture"],
   },
   {
-    id: 58,
     title: "Quantum Computing UI",
     title_en: "Quantum Computing UI",
     title_jp: "量子コンピューティングUI",
@@ -1521,7 +1015,6 @@ let sampleDesigns = [
     hashtags: ["quantum", "computing", "science", "ui"],
   },
   {
-    id: 59,
     title: "Smart Waste Management",
     title_en: "Smart Waste Management",
     title_jp: "スマート廃棄物管理",
@@ -1538,7 +1031,6 @@ let sampleDesigns = [
     hashtags: ["waste", "management", "smart", "environment"],
   },
   {
-    id: 60,
     title: "Personalized Learning App",
     title_en: "Personalized Learning App",
     title_jp: "パーソナライズされた学習アプリ",
@@ -1556,73 +1048,85 @@ let sampleDesigns = [
   },
 ];
 
-const avatars = [
-  "https://i.pinimg.com/1200x/a0/5c/bb/a05cbbae51343d0449fa60b8b4f392bc.jpg",
-  "https://i.pinimg.com/1200x/7a/ea/6f/7aea6fd1a681dbbfc766a9d4e242e674.jpg",
-  "https://i.pinimg.com/736x/78/87/ae/7887aeee613ccfd1b9d268329f9909cd.jpg",
-  "https://i.pinimg.com/1200x/cc/a3/33/cca333954eeb269bb2a29e3a453b7911.jpg",
-  "https://i.pinimg.com/474x/02/73/4f/02734f0fc8b96af66845227aa0be488e.jpg",
-  "https://i.pinimg.com/1200x/39/b8/ff/39b8ffdfd42183788dc4c02ba070d4d8.jpg",
-  "https://i.pinimg.com/1200x/4c/51/e1/4c51e1c2374abe628213f8065aece516.jpg",
-  "https://i.pinimg.com/1200x/77/0d/de/770dde3f789ca6301af65c1159b32986.jpg",
-];
+const importData = async () => {
+  try {
+    await connectDB();
 
-// Biến toàn cục
-let currentUser = null;
-let currentLanguage = "vi";
-let isDarkMode = false;
-let userDesigns = {}; // Stores designs uploaded by each user
-let likedDesigns = {}; // Stores liked designs for each user
-let savedDesigns = {}; // Stores saved designs for each user
-let users = JSON.parse(localStorage.getItem("users")) || [];
-let searchHistory = {}; // Stores search history for each user
-let currentDesignForAnalysis = null;
-let currentDesignIdForComment = null; // For the direct comment modal
-let currentDesignIdForDetail = null; // For the design detail modal
-let forgotPasswordUserEmail = null; // To store email during password reset process
+    // BƯỚC 1: XÓA DỮ LIỆU CŨ (designs và users)
+    console.log("Đang xóa dữ liệu cũ...");
+    const deletedDesigns = await Design.deleteMany({});
+    const deletedUsers = await User.deleteMany({});
 
-const designsPerPage = 9;
-let currentPage = 1;
-let currentFilter = "all"; // For library tab
+    console.log(`Đã xóa ${deletedDesigns.deletedCount} designs`);
+    console.log(`Đã xóa ${deletedUsers.deletedCount} users`);
 
-// Global variable to store the callback for confirmation modal
-let confirmationCallback = null;
+    if (deletedDesigns.deletedCount === 0 && deletedUsers.deletedCount === 0) {
+      console.log("Không có dữ liệu cũ để xóa.");
+    }
 
-// Notifications (static for now)
-const notifications = [
-  {
-    id: 1,
-    messageKey: "notification1",
-    time: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(), // 2 hours ago
-    bgColor: "bg-blue-50",
-    designId: 1, // Link to design ID 1
-  },
-  {
-    id: 2,
-    messageKey: "notification2",
-    time: new Date(Date.now() - 1000 * 60 * 60 * 5).toISOString(), // 5 hours ago
-    bgColor: "bg-green-50",
-    designId: 2, // Link to design ID 2
-  },
-  {
-    id: 3,
-    messageKey: "notification3",
-    time: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(), // 1 day ago
-    bgColor: "bg-yellow-50",
-    designId: 3, // Link to design ID 3
-  },
-];
+    // BƯỚC 2: TẠO USERS MỚI
+    console.log("Đang tạo users mẫu...");
+    const users = [];
+    for (const userData of sampleUsers) {
+      // Kiểm tra user đã tồn tại chưa (email unique)
+      const existingUser = await User.findOne({ email: userData.email });
+      if (existingUser) {
+        console.log(`User  ${userData.email} đã tồn tại, bỏ qua.`);
+        users.push(existingUser);
+        continue;
+      }
 
-// Load comments from localStorage for sample designs on initialization
-function loadCommentsForSampleDesigns() {
-  const storedSampleDesigns = JSON.parse(localStorage.getItem("sampleDesigns"));
-  if (storedSampleDesigns) {
-    sampleDesigns = storedSampleDesigns;
-  } else {
-    // If no stored data, save the initial sampleDesigns to localStorage
-    localStorage.setItem("sampleDesigns", JSON.stringify(sampleDesigns));
+      // Hash password và tạo user mới
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(userData.password, salt);
+      const user = new User({ ...userData, password: hashedPassword });
+      await user.save();
+      users.push(user);
+      console.log(`Tạo user: ${userData.name}`);
+    }
+
+    // BƯỚC 3: GÁN AUTHORID VÀ TẠO DESIGNS MỚI
+    console.log("Đang tạo designs mẫu...");
+    let createdDesigns = 0;
+    for (const designData of sampleDesigns) {
+      // Kiểm tra design đã tồn tại chưa (dựa trên title + author)
+      const existingDesign = await Design.findOne({
+        title: designData.title,
+        author: designData.author,
+      });
+      if (existingDesign) {
+        console.log(`Design "${designData.title}" đã tồn tại, bỏ qua.`);
+        continue;
+      }
+
+      // Gán authorId (luân phiên users)
+      const userIndex = createdDesigns % users.length;
+      designData.authorId = users[userIndex]._id;
+
+      // Tạo design mới
+      const design = new Design(designData);
+      await design.save();
+      createdDesigns++;
+      console.log(`Tạo design: ${designData.title}`);
+    }
+
+    console.log(`\n✅ Reseed thành công!`);
+    console.log(`- Users: ${users.length}`);
+    console.log(
+      `- Designs mới: ${createdDesigns} (tổng có thể nhiều hơn nếu giữ cũ)`
+    );
+    console.log("Bây giờ bạn có thể chạy backend và kiểm tra frontend.");
+
+    // Đóng kết nối
+    mongoose.connection.close();
+  } catch (error) {
+    console.error("❌ Lỗi trong quá trình reseed:", error.message);
+    process.exit(1);
   }
-}
+};
 
-// Call this function once when the application starts
-loadCommentsForSampleDesigns();
+// Chạy reseed nếu file được gọi trực tiếp
+if (require.main === module) {
+  console.log("🚀 Bắt đầu reseed dữ liệu...");
+  importData();
+}

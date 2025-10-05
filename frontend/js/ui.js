@@ -1,23 +1,23 @@
-// Hiển thị modal đăng nhập
+// Hiển thị modal đăng nhập (giữ nguyên logic frontend)
 function showLoginModal() {
   document.getElementById("loginModal").classList.remove("hidden");
   document.getElementById("registerModal").classList.add("hidden");
-  document.getElementById("forgotPasswordModal").classList.add("hidden"); // Ensure forgot password modal is hidden
+  document.getElementById("forgotPasswordModal").classList.add("hidden");
 }
 
-// Hiển thị modal đăng ký
+// Hiển thị modal đăng ký (giữ nguyên logic frontend)
 function showRegisterModal() {
   document.getElementById("registerModal").classList.remove("hidden");
   document.getElementById("loginModal").classList.add("hidden");
-  document.getElementById("forgotPasswordModal").classList.add("hidden"); // Ensure forgot password modal is hidden
+  document.getElementById("forgotPasswordModal").classList.add("hidden");
 }
 
-// Đóng modal
+// Đóng modal (giữ nguyên logic frontend)
 function closeModal(modalId) {
   document.getElementById(modalId).classList.add("hidden");
 }
 
-// Toggle mobile menu
+// Toggle mobile menu (giữ nguyên logic frontend)
 function toggleMobileMenu(view) {
   const mobileMenuId =
     view === "preLogin" ? "mobileMenuPreLogin" : "mobileMenuPostLogin";
@@ -25,18 +25,18 @@ function toggleMobileMenu(view) {
   mobileMenu.classList.toggle("active");
 }
 
-// Hiển thị thông báo
+// Hiển thị thông báo (giữ nguyên logic frontend)
 function showNotifications() {
   document.getElementById("notificationPanel").classList.add("active");
   renderNotifications();
 }
 
-// Ẩn thông báo
+// Ẩn thông báo (giữ nguyên logic frontend)
 function hideNotifications() {
   document.getElementById("notificationPanel").classList.remove("active");
 }
 
-// Helper function to format time ago
+// Helper function to format time ago (giữ nguyên logic frontend)
 function formatTimeAgo(isoString) {
   const date = new Date(isoString);
   const now = new Date();
@@ -93,7 +93,7 @@ function formatTimeAgo(isoString) {
   return translations[currentLanguage].justNow || "Vừa xong";
 }
 
-// Render notifications
+// Render notifications (giữ nguyên logic frontend)
 function renderNotifications() {
   const notificationList = document.getElementById("notificationList");
   if (!notificationList) return;
@@ -112,9 +112,9 @@ function renderNotifications() {
       div.className = `p-2 ${notif.bgColor} rounded-lg cursor-pointer hover:opacity-80`;
       div.onclick = () => {
         if (notif.designId) {
-          showDesignDetailModal(notif.designId); // Show design detail on click
+          showDesignDetailModal(notif.designId);
         }
-        hideNotifications(); // Hide panel after clicking a notification
+        hideNotifications();
       };
       div.innerHTML = `
               <p class="text-sm text-custom-primary" data-i18n="${
@@ -130,10 +130,10 @@ function renderNotifications() {
     });
   }
   document.getElementById("notificationCount").textContent =
-    notifications.length; // Update count
+    notifications.length;
 }
 
-// Mark all notifications as read (clear them)
+// Mark all notifications as read (clear them) (giữ nguyên logic frontend)
 function markAllNotificationsAsRead() {
   const notificationList = document.getElementById("notificationList");
   if (notificationList) {
@@ -152,7 +152,7 @@ function markAllNotificationsAsRead() {
   );
 }
 
-// Cập nhật hiển thị người dùng (avatar, tên)
+// Cập nhật hiển thị người dùng (avatar, tên) (giữ nguyên logic frontend)
 function updateUserDisplay() {
   if (currentUser) {
     document.getElementById("userWelcome").textContent = currentUser.name;
@@ -163,17 +163,14 @@ function updateUserDisplay() {
   }
 }
 
-// Chuyển tab
+// Chuyển tab (giữ nguyên logic frontend)
 function showTab(tabName) {
-  // Ẩn tất cả các tab
   document.querySelectorAll(".tab-content").forEach((tab) => {
     tab.classList.add("hidden");
   });
 
-  // Hiển thị tab được chọn
   document.getElementById(tabName + "Tab").classList.remove("hidden");
 
-  // Cập nhật active tab
   document.querySelectorAll(".tab").forEach((tab) => {
     tab.classList.remove("tab-active", "text-purple-600");
     tab.classList.add("text-custom-primary");
@@ -186,7 +183,6 @@ function showTab(tabName) {
     activeTabButton.classList.remove("text-custom-primary");
   }
 
-  // Reset upload form if switching to upload tab
   if (tabName === "upload") {
     document.getElementById("designTitle").value = "";
     document.getElementById("designDescription").value = "";
@@ -194,15 +190,14 @@ function showTab(tabName) {
     document.getElementById("fileNameDisplay").textContent = "";
   }
 
-  // Load dữ liệu khi chuyển tab
   if (tabName === "discover") {
     loadDiscoverDesigns();
   } else if (tabName === "library") {
-    filterLibrary("all"); // Mặc định hiển thị tất cả trong thư viện
+    filterLibrary("all");
   }
 }
 
-// Render pagination buttons
+// Render pagination buttons (giữ nguyên logic frontend)
 function renderPagination(totalPages, currentPage, elementId, callback) {
   const paginationContainer = document.getElementById(elementId);
   if (!paginationContainer) return;
@@ -213,42 +208,35 @@ function renderPagination(totalPages, currentPage, elementId, callback) {
   }
 
   const isMobile = window.innerWidth <= 768;
-  const maxPagesToShow = isMobile ? 3 : 5; // Max number of page buttons to show (e.g., 1, 2, 3, ..., Last)
+  const maxPagesToShow = isMobile ? 3 : 5;
   let startPage, endPage;
 
   if (totalPages <= maxPagesToShow) {
-    // Less than maxPagesToShow total pages so show all
     startPage = 1;
     endPage = totalPages;
   } else {
-    // More than maxPagesToShow total pages so calculate start and end pages
     const maxPagesBeforeCurrentPage = Math.floor(maxPagesToShow / 2);
     const maxPagesAfterCurrentPage = Math.ceil(maxPagesToShow / 2) - 1;
 
     if (currentPage <= maxPagesBeforeCurrentPage) {
-      // current page near the start
       startPage = 1;
       endPage = maxPagesToShow;
     } else if (currentPage + maxPagesAfterCurrentPage >= totalPages) {
-      // current page near the end
       startPage = totalPages - maxPagesToShow + 1;
       endPage = totalPages;
     } else {
-      // current page somewhere in the middle
       startPage = currentPage - maxPagesBeforeCurrentPage;
       endPage = currentPage + maxPagesAfterCurrentPage;
     }
   }
 
-  // Previous button
   const prevButton = document.createElement("button");
   prevButton.textContent = translations[currentLanguage].previous || "Trước";
   prevButton.disabled = currentPage === 1;
   prevButton.onclick = () => callback(currentPage - 1);
-  prevButton.classList.add("pagination-prev"); // Add class for easy selection
+  prevButton.classList.add("pagination-prev");
   paginationContainer.appendChild(prevButton);
 
-  // First page button
   if (startPage > 1) {
     const firstPageButton = document.createElement("button");
     firstPageButton.textContent = "1";
@@ -262,7 +250,6 @@ function renderPagination(totalPages, currentPage, elementId, callback) {
     }
   }
 
-  // Page numbers
   for (let i = startPage; i <= endPage; i++) {
     const pageButton = document.createElement("button");
     pageButton.textContent = i;
@@ -271,7 +258,6 @@ function renderPagination(totalPages, currentPage, elementId, callback) {
     paginationContainer.appendChild(pageButton);
   }
 
-  // Last page button
   if (endPage < totalPages) {
     if (endPage < totalPages - 1) {
       const ellipsis = document.createElement("span");
@@ -285,12 +271,11 @@ function renderPagination(totalPages, currentPage, elementId, callback) {
     paginationContainer.appendChild(lastPageButton);
   }
 
-  // Next button
   const nextButton = document.createElement("button");
   nextButton.textContent = translations[currentLanguage].next || "Sau";
   nextButton.disabled = currentPage === totalPages;
   nextButton.onclick = () => callback(currentPage + 1);
-  nextButton.classList.add("pagination-next"); // Add class for easy selection
+  nextButton.classList.add("pagination-next");
   paginationContainer.appendChild(nextButton);
 }
 
@@ -300,31 +285,29 @@ function createDesignCard(design, context) {
   card.className =
     "design-card bg-custom-white rounded-2xl shadow-lg overflow-hidden stagger-item border border-custom cursor-pointer";
   card.style.transform = "translateY(30px)";
-  // Use a wrapper function to prevent immediate execution and pass event
   card.onclick = (event) => {
-    // Check if the click target is a button inside the card
     if (
       event.target.closest("button") &&
       (event.target.closest("button").classList.contains("like-button") ||
-        event.target.closest("button").classList.contains("save-button") || // Added save-button check
+        event.target.closest("button").classList.contains("save-button") ||
         event.target.closest("button").classList.contains("comment-button") ||
         event.target.closest("button").classList.contains("delete-button"))
     ) {
-      return; // Do nothing if a button was clicked
+      return;
     }
-    showDesignDetailModal(design.id);
+    showDesignDetailModal(design._id); // Use _id from MongoDB
   };
 
   const title = design[`title_${currentLanguage}`] || design.title;
   const description =
     design[`description_${currentLanguage}`] || design.description;
-  const isMyDesign = currentUser && design.author === currentUser.name;
+  const isMyDesign = currentUser && design.authorId === currentUser._id; // Check authorId
   const isLiked =
     currentUser &&
-    (likedDesigns[currentUser.id] || []).some((d) => d.id === design.id);
+    (likedDesigns[currentUser._id] || []).some((d) => d._id === design._id);
   const isSaved =
     currentUser &&
-    (savedDesigns[currentUser.id] || []).some((d) => d.id === design.id);
+    (savedDesigns[currentUser._id] || []).some((d) => d._id === design._id);
 
   card.innerHTML = `
           <div class="relative">
@@ -358,26 +341,26 @@ function createDesignCard(design, context) {
                     translations[currentLanguage].by || "Tác giả"
                   }: ${design.author}</span>
                   <div class="flex space-x-4">
-                      <button onclick="event.stopPropagation(); toggleLike(${
-                        design.id
-                      })" class="like-button ${isLiked ? "liked" : ""}">
+                      <button onclick="event.stopPropagation(); toggleLike('${
+                        design._id
+                      }')" class="like-button ${isLiked ? "liked" : ""}">
                           <i class="fas fa-heart ${
                             isLiked ? "text-red-500" : "text-custom-secondary"
                           }"></i>
                           <span class="text-sm ml-1">${design.likes}</span>
                       </button>
-                      <button onclick="event.stopPropagation(); toggleSave(${
-                        design.id
-                      })" class="save-button ${isSaved ? "saved" : ""}">
+                      <button onclick="event.stopPropagation(); toggleSave('${
+                        design._id
+                      }')" class="save-button ${isSaved ? "saved" : ""}">
                           <i class="fas fa-bookmark ${
                             isSaved
                               ? "text-yellow-500"
                               : "text-custom-secondary"
                           }"></i>
                       </button>
-                      <button onclick="event.stopPropagation(); showCommentModal(${
-                        design.id
-                      })" class="comment-button text-custom-secondary hover:text-purple-600">
+                      <button onclick="event.stopPropagation(); showCommentModal('${
+                        design._id
+                      }')" class="comment-button text-custom-secondary hover:text-purple-600">
                           <i class="fas fa-comment"></i>
                           <span class="text-sm ml-1">${
                             design.comments ? design.comments.length : 0
@@ -385,7 +368,7 @@ function createDesignCard(design, context) {
                       </button>
                       ${
                         isMyDesign && context === "library"
-                          ? `<button onclick="event.stopPropagation(); confirmDeleteDesign(${design.id})" class="delete-button text-red-500 hover:text-red-700 ml-2">
+                          ? `<button onclick="event.stopPropagation(); confirmDeleteDesign('${design._id}')" class="delete-button text-red-500 hover:text-red-700 ml-2">
                             <i class="fas fa-trash-alt"></i>
                         </button>`
                           : ""
@@ -398,7 +381,7 @@ function createDesignCard(design, context) {
   return card;
 }
 
-// Hiển thị modal bình luận (dùng cho nút comment trực tiếp trên card)
+// Hiển thị modal bình luận (dùng cho nút comment trực tiếp trên card) (giữ nguyên logic frontend)
 function showCommentModal(designId) {
   if (!currentUser) {
     showLoginModal();
@@ -409,13 +392,13 @@ function showCommentModal(designId) {
   document.getElementById("commentModal").classList.remove("hidden");
 }
 
-// Đóng modal bình luận
+// Đóng modal bình luận (giữ nguyên logic frontend)
 function closeCommentModal() {
   document.getElementById("commentModal").classList.add("hidden");
   currentDesignIdForComment = null;
 }
 
-// Hiển thị modal chi tiết design
+// Hiển thị modal chi tiết design (giữ nguyên logic frontend)
 function showDesignDetailModal(designId) {
   if (!currentUser) {
     showLoginModal();
@@ -427,9 +410,8 @@ function showDesignDetailModal(designId) {
 }
 
 // Cập nhật nội dung modal chi tiết design
-function updateDesignDetailModal(designId) {
-  // Find the design in sampleDesigns
-  let design = findDesignById(designId);
+async function updateDesignDetailModal(designId) {
+  let design = await findDesignById(designId);
 
   if (design) {
     document.getElementById("detailDesignTitle").textContent =
@@ -445,7 +427,7 @@ function updateDesignDetailModal(designId) {
     const detailLikeButton = document.getElementById("detailLikeButton");
     const isLiked =
       currentUser &&
-      (likedDesigns[currentUser.id] || []).some((d) => d.id === design.id);
+      (likedDesigns[currentUser._id] || []).some((d) => d._id === design._id);
     detailLikeButton.className = `like-button ${
       isLiked ? "liked" : ""
     } text-custom-secondary hover:text-red-500`;
@@ -453,14 +435,14 @@ function updateDesignDetailModal(designId) {
       isLiked ? "text-red-500" : ""
     }`;
     detailLikeButton.onclick = () => {
-      toggleLike(design.id);
-      updateDesignDetailModal(design.id); // Re-render to update like status
+      toggleLike(design._id);
+      updateDesignDetailModal(design._id);
     };
 
     const detailSaveButton = document.getElementById("detailSaveButton");
     const isSaved =
       currentUser &&
-      (savedDesigns[currentUser.id] || []).some((d) => d.id === design.id);
+      (savedDesigns[currentUser._id] || []).some((d) => d._id === design._id);
     detailSaveButton.className = `save-button ${
       isSaved ? "saved" : ""
     } text-custom-secondary hover:text-yellow-500`;
@@ -468,15 +450,15 @@ function updateDesignDetailModal(designId) {
       isSaved ? "text-yellow-500" : ""
     }`;
     detailSaveButton.onclick = () => {
-      toggleSave(design.id);
-      updateDesignDetailModal(design.id); // Re-render to update save status
+      toggleSave(design._id);
+      updateDesignDetailModal(design._id);
     };
 
     loadComments(designId, "detailCommentList");
   }
 }
 
-// Đóng modal chi tiết design
+// Đóng modal chi tiết design (giữ nguyên logic frontend)
 function closeDesignDetailModal() {
   document.getElementById("designDetailModal").classList.add("hidden");
   currentDesignIdForDetail = null;

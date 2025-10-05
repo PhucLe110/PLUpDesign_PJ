@@ -1,5 +1,5 @@
 // Đăng ký
-function register() {
+async function register() {
   const name = document.getElementById("registerName").value;
   const email = document.getElementById("registerEmail").value;
   const password = document.getElementById("registerPassword").value;
@@ -25,35 +25,34 @@ function register() {
     return;
   }
 
-  if (users.find((user) => user.email === email)) {
-    showToast(
-      "error",
-      translations[currentLanguage].emailExists || "Email đã tồn tại!"
-    );
-    return;
+  try {
+    const response = await fetch(`${API_BASE_URL}/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, password }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      showToast(
+        "success",
+        translations[currentLanguage].registerSuccess || "Đăng ký thành công!"
+      );
+      showLoginModal();
+    } else {
+      showToast("error", data.message || "Đăng ký thất bại!");
+    }
+  } catch (error) {
+    console.error("Registration error:", error);
+    showToast("error", "Đã xảy ra lỗi khi đăng ký.");
   }
-
-  const newUser = {
-    id: Date.now(),
-    name: name,
-    email: email,
-    password: password,
-    avatar: avatars[Math.floor(Math.random() * avatars.length)], // Gán avatar ngẫu nhiên
-    createdAt: new Date().toISOString(),
-  };
-
-  users.push(newUser);
-  localStorage.setItem("users", JSON.stringify(users));
-
-  showToast(
-    "success",
-    translations[currentLanguage].registerSuccess || "Đăng ký thành công!"
-  );
-  showLoginModal();
 }
 
 // Đăng nhập
-function login() {
+async function login() {
   const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPassword").value;
 
@@ -66,46 +65,55 @@ function login() {
     return;
   }
 
-  const user = users.find((u) => u.email === email && u.password === password);
+  try {
+    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
 
-  if (user) {
-    currentUser = user;
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    const data = await response.json();
 
-    // Load user-specific data
-    userDesigns[currentUser.id] =
-      JSON.parse(localStorage.getItem(`userDesigns_${currentUser.id}`)) || [];
-    likedDesigns[currentUser.id] =
-      JSON.parse(localStorage.getItem(`likedDesigns_${currentUser.id}`)) || [];
-    searchHistory[currentUser.id] =
-      JSON.parse(localStorage.getItem(`searchHistory_${currentUser.id}`)) || [];
+    if (response.ok) {
+      currentUser = data; // Store user data including token
+      localStorage.setItem("currentUser", JSON.stringify(currentUser));
 
-    // Chuyển sang view sau đăng nhập
-    document.getElementById("preLoginView").classList.add("hidden");
-    document.getElementById("postLoginView").classList.remove("hidden");
+      // Load user-specific data from localStorage (for liked/saved/history)
+      likedDesigns[currentUser._id] =
+        JSON.parse(localStorage.getItem(`likedDesigns_${currentUser._id}`)) ||
+        [];
+      savedDesigns[currentUser._id] =
+        JSON.parse(localStorage.getItem(`savedDesigns_${currentUser._id}`)) ||
+        [];
+      searchHistory[currentUser._id] =
+        JSON.parse(localStorage.getItem(`searchHistory_${currentUser._id}`)) ||
+        [];
 
-    closeModal("loginModal");
+      document.getElementById("preLoginView").classList.add("hidden");
+      document.getElementById("postLoginView").classList.remove("hidden");
 
-    // Hiển thị tab mặc định
-    showTab("discover");
+      closeModal("loginModal");
 
-    // Cập nhật user welcome và avatar
-    updateUserDisplay();
-
-    // Tải dữ liệu
-    loadDiscoverDesigns();
-    loadLibraryDesigns();
-    renderNotifications(); // Render notifications for the logged-in user
-    showToast(
-      "success",
-      translations[currentLanguage].welcome + " " + currentUser.name + "!"
-    );
-  } else {
-    showToast(
-      "error",
-      translations[currentLanguage].loginFailed ||
-        "Email hoặc mật khẩu không đúng!"
-    );
+      showTab("discover");
+      updateUserDisplay();
+      renderNotifications(); // Render notifications for the logged-in user
+      showToast(
+        "success",
+        translations[currentLanguage].welcome + " " + currentUser.name + "!"
+      );
+    } else {
+      showToast(
+        "error",
+        data.message ||
+          translations[currentLanguage].loginFailed ||
+          "Email hoặc mật khẩu không đúng!"
+      );
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+    showToast("error", "Đã xảy ra lỗi khi đăng nhập.");
   }
 }
 
@@ -114,19 +122,18 @@ function checkAuth() {
   const savedUser = localStorage.getItem("currentUser");
   if (savedUser) {
     currentUser = JSON.parse(savedUser);
-    // Load user-specific data
-    userDesigns[currentUser.id] =
-      JSON.parse(localStorage.getItem(`userDesigns_${currentUser.id}`)) || [];
-    likedDesigns[currentUser.id] =
-      JSON.parse(localStorage.getItem(`likedDesigns_${currentUser.id}`)) || [];
-    searchHistory[currentUser.id] =
-      JSON.parse(localStorage.getItem(`searchHistory_${currentUser.id}`)) || [];
+    // Load user-specific data from localStorage (for liked/saved/history)
+    likedDesigns[currentUser._id] =
+      JSON.parse(localStorage.getItem(`likedDesigns_${currentUser._id}`)) || [];
+    savedDesigns[currentUser._id] =
+      JSON.parse(localStorage.getItem(`savedDesigns_${currentUser._id}`)) || [];
+    searchHistory[currentUser._id] =
+      JSON.parse(localStorage.getItem(`searchHistory_${currentUser._id}`)) ||
+      [];
 
     document.getElementById("preLoginView").classList.add("hidden");
     document.getElementById("postLoginView").classList.remove("hidden");
     showTab("discover");
-    loadDiscoverDesigns();
-    loadLibraryDesigns();
     updateUserDisplay();
     renderNotifications();
   }
@@ -146,6 +153,10 @@ function confirmLogout() {
 function logout() {
   currentUser = null;
   localStorage.removeItem("currentUser");
+  // Clear local user-specific data
+  likedDesigns = {};
+  savedDesigns = {};
+  searchHistory = {};
 
   document.getElementById("preLoginView").classList.remove("hidden");
   document.getElementById("postLoginView").classList.add("hidden");
@@ -195,7 +206,7 @@ function selectProfileAvatar(avatarUrl) {
 }
 
 // Lưu thay đổi profile
-function saveProfileChanges() {
+async function saveProfileChanges() {
   if (!currentUser) return;
 
   const newName = document.getElementById("editProfileName").value.trim();
@@ -208,24 +219,34 @@ function saveProfileChanges() {
     return;
   }
 
-  currentUser.name = newName;
-  localStorage.setItem("currentUser", JSON.stringify(currentUser));
+  try {
+    const response = await fetch(`${API_BASE_URL}/auth/profile`, {
+      method: "PUT",
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ name: newName, avatar: currentUser.avatar }),
+    });
 
-  // Update the user in the global users array as well
-  const userIndex = users.findIndex((user) => user.id === currentUser.id);
-  if (userIndex !== -1) {
-    users[userIndex].name = newName;
-    users[userIndex].avatar = currentUser.avatar; // Also update avatar in global users
-    localStorage.setItem("users", JSON.stringify(users));
+    const data = await response.json();
+
+    if (response.ok) {
+      currentUser.name = data.name;
+      currentUser.avatar = data.avatar;
+      localStorage.setItem("currentUser", JSON.stringify(currentUser));
+
+      updateUserDisplay();
+      closeModal("profileEditModal");
+      showToast(
+        "success",
+        translations[currentLanguage].profileUpdateSuccess ||
+          "Cập nhật profile thành công!"
+      );
+    } else {
+      showToast("error", data.message || "Cập nhật profile thất bại!");
+    }
+  } catch (error) {
+    console.error("Profile update error:", error);
+    showToast("error", "Đã xảy ra lỗi khi cập nhật profile.");
   }
-
-  updateUserDisplay();
-  closeModal("profileEditModal");
-  showToast(
-    "success",
-    translations[currentLanguage].profileUpdateSuccess ||
-      "Cập nhật profile thành công!"
-  );
 }
 
 // New functions for Forgot Password flow
@@ -253,18 +274,9 @@ function sendResetCode() {
     return;
   }
 
-  const userExists = users.some((user) => user.email === email);
-  if (!userExists) {
-    showToast(
-      "error",
-      translations[currentLanguage].invalidEmail || "Email không tồn tại!"
-    );
-    return;
-  }
-
-  forgotPasswordUserEmail = email;
   // In a real application, you would send a code to the user's email here.
   // For this demo, we just simulate it.
+  forgotPasswordUserEmail = email; // Store email for the next step
   showToast(
     "info",
     translations[currentLanguage].codeSentInfo ||
@@ -275,7 +287,7 @@ function sendResetCode() {
   updateLanguage(); // Update language for step 2 content
 }
 
-function resetPassword() {
+async function resetPassword() {
   const resetCode = document.getElementById("resetCode").value.trim();
   const newPassword = document.getElementById("newPassword").value;
   const confirmNewPassword =
@@ -305,13 +317,27 @@ function resetPassword() {
     return;
   }
 
-  if (forgotPasswordUserEmail) {
-    const userIndex = users.findIndex(
-      (user) => user.email === forgotPasswordUserEmail
+  if (!forgotPasswordUserEmail) {
+    showToast(
+      "error",
+      translations[currentLanguage].noEmailFoundForReset ||
+        "Không tìm thấy email để đặt lại mật khẩu. Vui lòng thử lại."
     );
-    if (userIndex !== -1) {
-      users[userIndex].password = newPassword;
-      localStorage.setItem("users", JSON.stringify(users));
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/auth/reset-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: forgotPasswordUserEmail, newPassword }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
       showToast(
         "success",
         translations[currentLanguage].resetPasswordSuccess ||
@@ -320,16 +346,10 @@ function resetPassword() {
       closeModal("forgotPasswordModal");
       showLoginModal(); // Redirect to login after successful reset
     } else {
-      showToast(
-        "error",
-        translations[currentLanguage].invalidEmail || "Email không tồn tại!"
-      );
+      showToast("error", data.message || "Đặt lại mật khẩu thất bại!");
     }
-  } else {
-    showToast(
-      "error",
-      translations[currentLanguage].noEmailFoundForReset ||
-        "Không tìm thấy email để đặt lại mật khẩu. Vui lòng thử lại."
-    );
+  } catch (error) {
+    console.error("Password reset error:", error);
+    showToast("error", "Đã xảy ra lỗi khi đặt lại mật khẩu.");
   }
 }

@@ -4,11 +4,12 @@ function init() {
   loadLanguage();
   checkAuth();
   setupEventListeners();
+  // Initial load for discover designs
+  loadDiscoverDesigns();
 }
 
-// Cài đặt event listeners
+// Cài đặt event listeners (giữ nguyên logic frontend)
 function setupEventListeners() {
-  // Notification hover
   let notificationTimeout;
   document
     .getElementById("notificationBtn")
@@ -32,7 +33,6 @@ function setupEventListeners() {
       notificationTimeout = setTimeout(hideNotifications, 300);
     });
 
-  // Hide search history when clicking outside
   document.addEventListener("click", (e) => {
     const searchInput = document.getElementById("designSearchInput");
     const searchHistoryDiv = document.getElementById("searchHistory");
@@ -46,7 +46,6 @@ function setupEventListeners() {
     }
   });
 
-  // Show/hide clear search button
   document
     .getElementById("designSearchInput")
     ?.addEventListener("input", (e) => {
@@ -61,14 +60,14 @@ function setupEventListeners() {
     });
 }
 
-// Toggle dark mode
+// Toggle dark mode (giữ nguyên logic frontend)
 function toggleDarkMode() {
   isDarkMode = !isDarkMode;
   localStorage.setItem("darkMode", isDarkMode);
   updateTheme();
 }
 
-// Cập nhật theme
+// Cập nhật theme (giữ nguyên logic frontend)
 function updateTheme() {
   isDarkMode = localStorage.getItem("darkMode") === "true";
   if (isDarkMode) {
@@ -84,26 +83,24 @@ function updateTheme() {
   }
 }
 
-// Thay đổi ngôn ngữ
+// Thay đổi ngôn ngữ (giữ nguyên logic frontend)
 function changeLanguage(lang) {
   currentLanguage = lang;
   localStorage.setItem("language", lang);
   updateLanguage();
-  // Update language selector values
   document.getElementById("languageSelectPreLogin").value = lang;
   document.getElementById("languageSelectPreLoginMobile").value = lang;
   if (document.getElementById("languageSelectPostLogin")) {
     document.getElementById("languageSelectPostLogin").value = lang;
     document.getElementById("languageSelectPostLoginMobile").value = lang;
   }
-  // Reload designs to apply new language titles/descriptions
   if (currentUser) {
     loadDiscoverDesigns();
     loadLibraryDesigns();
   }
 }
 
-// Cập nhật ngôn ngữ
+// Cập nhật ngôn ngữ (giữ nguyên logic frontend)
 function updateLanguage() {
   const elements = document.querySelectorAll("[data-i18n]");
   elements.forEach((element) => {
@@ -112,7 +109,6 @@ function updateLanguage() {
       translations[currentLanguage][key] || translations["vi"][key];
   });
 
-  // Cập nhật placeholder
   const placeholders = document.querySelectorAll("[data-i18n-ph]");
   placeholders.forEach((element) => {
     const key = element.getAttribute("data-i18n-ph");
@@ -120,12 +116,10 @@ function updateLanguage() {
       translations[currentLanguage][key] || translations["vi"][key];
   });
 
-  // Cập nhật user welcome (chỉ hiển thị tên)
   if (currentUser) {
     document.getElementById("userWelcome").textContent = currentUser.name;
   }
 
-  // Update pagination button texts
   const paginationContainers = document.querySelectorAll(".pagination");
   paginationContainers.forEach((container) => {
     const prevButton = container.querySelector(".pagination-prev");
@@ -140,7 +134,7 @@ function updateLanguage() {
   });
 }
 
-// Load ngôn ngữ từ localStorage
+// Load ngôn ngữ từ localStorage (giữ nguyên logic frontend)
 function loadLanguage() {
   const savedLanguage = localStorage.getItem("language");
   if (savedLanguage) {
@@ -157,19 +151,19 @@ function loadLanguage() {
   updateLanguage();
 }
 
-// Cuộn đến features
+// Cuộn đến features (giữ nguyên logic frontend)
 function scrollToFeatures() {
   document
     .getElementById("featuresSection")
     .scrollIntoView({ behavior: "smooth" });
 }
 
-// Cuộn lên đầu trang
+// Cuộn lên đầu trang (giữ nguyên logic frontend)
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// Function to show toast notifications
+// Function to show toast notifications (giữ nguyên logic frontend)
 function showToast(type, message) {
   const toastContainer = document.getElementById("toast-container");
   const toast = document.createElement("div");
@@ -187,16 +181,15 @@ function showToast(type, message) {
   toast.innerHTML = `${icon}<span class="message">${message}</span>`;
   toastContainer.appendChild(toast);
 
-  // Remove toast after 3 seconds
   setTimeout(() => {
     toast.remove();
   }, 3000);
 }
 
-// Function to toggle password visibility
+// Function to toggle password visibility (giữ nguyên logic frontend)
 function togglePasswordVisibility(inputId) {
   const input = document.getElementById(inputId);
-  const icon = input.nextElementSibling.querySelector("i"); // Assuming the icon is the next sibling's child
+  const icon = input.nextElementSibling.querySelector("i");
 
   if (input.type === "password") {
     input.type = "text";
@@ -209,16 +202,16 @@ function togglePasswordVisibility(inputId) {
   }
 }
 
-// Function to show confirmation modal
+// Function to show confirmation modal (giữ nguyên logic frontend)
 function showConfirmationModal(title, message, callback) {
   document.getElementById("confirmationTitle").textContent = title;
   document.getElementById("confirmationMessage").textContent = message;
   confirmationCallback = callback;
   document.getElementById("confirmationModal").classList.remove("hidden");
-  updateLanguage(); // Update language for confirmation modal buttons
+  updateLanguage();
 }
 
-// Function to execute confirmation callback
+// Function to execute confirmation callback (giữ nguyên logic frontend)
 function executeConfirmation() {
   if (confirmationCallback) {
     confirmationCallback();
@@ -226,23 +219,22 @@ function executeConfirmation() {
   closeConfirmationModal();
 }
 
-// Function to cancel confirmation
+// Function to cancel confirmation (giữ nguyên logic frontend)
 function cancelConfirmation() {
   closeConfirmationModal();
 }
 
-// Function to close confirmation modal
+// Function to close confirmation modal (giữ nguyên logic frontend)
 function closeConfirmationModal(event) {
   const modal = document.getElementById("confirmationModal");
-  // Only close if the click is directly on the modal background
   if (event && event.target !== modal) {
     return;
   }
   modal.classList.add("hidden");
-  confirmationCallback = null; // Clear the callback
+  confirmationCallback = null;
 }
 
-// Animation khi scroll
+// Animation khi scroll (giữ nguyên logic frontend)
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
@@ -252,7 +244,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 });
 
-// Khởi tạo khi trang tải
+// Khởi tạo khi trang tải (giữ nguyên logic frontend)
 window.addEventListener("load", () => {
   init();
 
@@ -260,7 +252,6 @@ window.addEventListener("load", () => {
     observer.observe(item);
   });
 
-  // Đóng modal khi click outside
   document.addEventListener("click", (e) => {
     const modals = [
       "loginModal",
